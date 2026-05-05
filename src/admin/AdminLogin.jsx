@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import api from '../lib/api';
@@ -168,9 +168,9 @@ export default function AdminLogin() {
 
           {/* Footer */}
           <div style={{ marginTop: 20, paddingTop: 16, borderTop: '1px solid #F3F4F6', textAlign: 'center' }}>
-            <a href="/" style={{ fontSize: 12, color: '#9CA3AF', textDecoration: 'none', fontWeight: 500 }}>
+            <Link to="/" style={{ fontSize: 12, color: '#9CA3AF', textDecoration: 'none', fontWeight: 500 }}>
               ← Return to SMG Machines website
-            </a>
+            </Link>
           </div>
         </div>
       </div>

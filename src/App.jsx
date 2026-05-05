@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation, Outlet } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Outlet, Link } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -81,7 +81,7 @@ export default function App() {
                   <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700, fontSize: '6rem', color: '#C9A84C', lineHeight: 1, marginBottom: '1rem' }}>404</div>
                   <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.75rem', fontWeight: 700, color: '#000924', marginBottom: '1rem' }}>Page Not Found</h2>
                   <p style={{ fontFamily: "'Source Sans 3', sans-serif", color: '#75777F', marginBottom: '2rem' }}>The page you're looking for doesn't exist.</p>
-                  <a href="/" className="btn-primary">Return Home</a>
+                  <Link to="/" className="btn-primary">Return Home</Link>
                 </div>
               </div>
             } />

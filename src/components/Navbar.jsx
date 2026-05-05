@@ -152,9 +152,9 @@ export default function Navbar() {
 
         {/* Right side */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
-          <a href="/contact" className="f-nav-cta">
+          <Link to="/contact" className="f-nav-cta">
             Get a Quote
-          </a>
+          </Link>
           {/* Mobile toggle */}
           <button
             onClick={() => setIsOpen(p => !p)}
