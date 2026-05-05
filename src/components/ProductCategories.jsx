@@ -30,13 +30,13 @@ export default function ProductCategories() {
         </div>
 
         {/* Filters */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, mb: 32, flexWrap: 'wrap', marginBottom: '2.5rem' }}>
-          <span className="f-label" style={{ marginRight: 16 }}>Filtrar por Máquinas:</span>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, flexWrap: 'wrap', marginBottom: '3rem' }}>
+          <span className="f-label" style={{ opacity: 0.6 }}>Filter by Category:</span>
           <button 
             className={`f-chip ${filter === 'all' ? 'f-chip-active' : 'f-chip-default'}`}
             onClick={() => setFilter('all')}
           >
-            Todas
+            All Machines
           </button>
           {categories.map(c => (
             <button 

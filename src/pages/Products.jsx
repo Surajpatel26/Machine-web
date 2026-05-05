@@ -10,22 +10,6 @@ import spmImg   from '../assets/spm_machine.png';
 import grindImg from '../assets/grinding_machine.png';
 import factoryImg from '../assets/factory_floor.png';
 
-const T = {
-  navy:'#000924', navyMid:'#0F2044', gold:'#C9A84C', goldLt:'#E6C364',
-  ivory:'#FDF9F1', ivoryDk:'#F7F3EB', slate:'#45464E', steel:'#75777F',
-  playfair:"'Playfair Display', Georgia, serif",
-  cinzel:"'Cinzel', serif",
-  body:"'Source Sans 3', sans-serif",
-};
-
-const categoryImages = {
-  'vmc-machines': vmcImg,
-  'cnc-machines': cncImg,
-  'hmc-machines': hmcImg,
-  'special-purpose-machines': spmImg,
-  'grinding-machines': grindImg,
-};
-
 export default function Products() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [products,   setProducts]   = useState([]);
@@ -56,234 +40,148 @@ export default function Products() {
   const setCategory = slug => slug ? setSearchParams({ category: slug }) : setSearchParams({});
 
   return (
-    <div style={{ background: T.ivory }}>
+    <div style={{ background: 'var(--bg-white)', pt: '64px' }}>
 
       {/* ── Hero Banner ─────────────────────────────────── */}
-      <div style={{ position: 'relative', height: 300, overflow: 'hidden' }}>
-        <img src={factoryImg} alt="Products" style={{ width: '100%', height: '100%', objectFit: 'cover' }} className="hero-image-pan" />
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(0,9,36,0.9) 0%, rgba(0,9,36,0.55) 60%, transparent 100%)' }} />
+      <div style={{ position: 'relative', height: '40vh', minHeight: 300, overflow: 'hidden' }}>
+        <img src={factoryImg} alt="Products" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(26,26,24,0.95) 0%, rgba(26,26,24,0.6) 60%, transparent 100%)' }} />
         <motion.div
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}
-          style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '0 3rem' }}
+          style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '0 2rem' }}
+          className="max-w-wide"
         >
-          <div style={{
-            display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12,
-            fontFamily: T.cinzel, fontSize: '0.7rem', letterSpacing: '0.2em', color: T.gold, textTransform: 'uppercase',
-          }}>
-            <div style={{ width: 32, height: 1, background: T.gold }} />
-            Our Machines
+          <div className="f-section-label" style={{ color: 'var(--gold)', marginBottom: 12 }}>
+            Catalogue
           </div>
-          <h1 style={{
-            fontFamily: T.playfair, fontWeight: 700,
-            fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-            color: T.ivory, letterSpacing: '-0.02em', marginBottom: 12,
+          <h1 className="f-display" style={{ 
+            fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', 
+            color: '#fff', marginBottom: 16 
           }}>
-            Product{' '}
-            <em style={{ fontStyle: 'italic', color: T.goldLt }}>Catalogue</em>
+            Precision <span className="f-display-italic" style={{ color: 'var(--gold)' }}>Engineering</span>
           </h1>
-          <p style={{ fontFamily: T.body, fontSize: '0.95rem', color: 'rgba(253,249,241,0.72)', maxWidth: 480, lineHeight: 1.65 }}>
-            Explore our complete range of precision machines designed for modern manufacturing excellence.
+          <p className="f-body" style={{ color: 'rgba(255,255,255,0.7)', maxWidth: 500, fontSize: '1.1rem' }}>
+            Explore our curated collections of vertical and horizontal machining centers.
           </p>
         </motion.div>
       </div>
 
-      <div style={{ height: 1, background: 'linear-gradient(90deg, transparent, rgba(201,168,76,0.35), transparent)' }} />
+      {/* ── Content ─────────────────────────────── */}
+      <div className="max-w-wide" style={{ padding: '4rem 2rem 8rem' }}>
 
-      {/* ── Filters + Content ─────────────────────────────── */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12" style={{ paddingTop: 48, paddingBottom: 80 }}>
-
-        {/* Search + View toggle row */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 24, alignItems: 'center' }}>
+        {/* Controls Row */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', marginBottom: '3rem', alignItems: 'center', justifyContent: 'space-between' }}>
+          
           {/* Search */}
-          <div style={{ flex: 1, minWidth: 240, position: 'relative' }}>
-            <FaSearch style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: T.steel, fontSize: 13 }} />
+          <div style={{ flex: '1 1 400px', position: 'relative', maxWidth: 600 }}>
+            <FaSearch style={{ position: 'absolute', left: 20, top: '50%', transform: 'translateY(-50%)', color: 'var(--ink-fade)', fontSize: 14 }} />
             <input
-              type="text" placeholder="Search machines…" value={search}
+              type="text" placeholder="Search by machine model or series..." value={search}
               onChange={e => setSearch(e.target.value)}
+              className="f-body"
               style={{
-                width: '100%', background: '#fff',
-                border: `1.5px solid ${inputFocus ? T.gold : '#E0DDD5'}`,
-                borderRadius: 2, paddingLeft: 40, paddingRight: 16, paddingTop: 11, paddingBottom: 11,
-                fontFamily: T.body, fontSize: '0.9rem', color: T.navy, outline: 'none', transition: 'border-color 0.25s',
-                boxShadow: inputFocus ? '0 0 0 3px rgba(201,168,76,0.1)' : 'none',
+                width: '100%', background: 'transparent',
+                border: 'none', borderBottom: `2px solid ${inputFocus ? 'var(--ink)' : 'rgba(26,26,24,0.1)'}`,
+                padding: '16px 16px 16px 48px',
+                fontSize: '1rem', color: 'var(--ink)', outline: 'none', transition: 'all 0.3s',
               }}
               onFocus={() => setInputFocus(true)} onBlur={() => setInputFocus(false)}
             />
           </div>
 
-          {/* Result count */}
-          {!loading && (
-            <div style={{ fontFamily: T.cinzel, fontSize: '0.62rem', letterSpacing: '0.12em', color: T.steel, textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
-              {total} Result{total !== 1 ? 's' : ''}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+            {!loading && (
+              <span className="f-label" style={{ color: 'var(--ink-light)', opacity: 0.6 }}>{total} Results</span>
+            )}
+            
+            <div style={{ display: 'flex', background: 'rgba(26,26,24,0.05)', padding: 4, borderRadius: 30 }}>
+              {[['grid', FaThLarge], ['list', FaList]].map(([v, Icon]) => (
+                <button key={v} onClick={() => setView(v)}
+                  style={{
+                    width: 36, height: 36, borderRadius: '50%', border: 'none',
+                    background: view === v ? 'var(--ink)' : 'transparent',
+                    color: view === v ? '#fff' : 'var(--ink-light)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    cursor: 'pointer', transition: 'all 0.25s',
+                  }}>
+                  <Icon size={14} />
+                </button>
+              ))}
             </div>
-          )}
-
-          {/* View toggle */}
-          <div style={{ display: 'flex', gap: 6 }}>
-            {[['grid', FaThLarge], ['list', FaList]].map(([v, Icon]) => (
-              <button key={v} onClick={() => setView(v)}
-                title={v === 'grid' ? 'Grid view' : 'List view'}
-                style={{
-                  width: 42, height: 42, borderRadius: 2,
-                  border: `1.5px solid ${view === v ? T.gold : '#E0DDD5'}`,
-                  background: view === v ? T.gold : '#fff',
-                  color: view === v ? T.navy : T.steel,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  cursor: 'pointer', transition: 'all 0.2s',
-                }}>
-                <Icon style={{ fontSize: 14 }} />
-              </button>
-            ))}
           </div>
         </div>
 
-        {/* Category tabs */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 44 }}>
+        {/* Categories Row */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginBottom: '4rem' }}>
           <button
             onClick={() => setCategory('')}
-            style={{
-              padding: '8px 20px', borderRadius: 2,
-              border: `1.5px solid ${!activeCategory ? T.gold : '#E0DDD5'}`,
-              background: !activeCategory ? T.navy : '#fff',
-              fontFamily: T.cinzel, fontSize: '0.63rem', letterSpacing: '0.12em', textTransform: 'uppercase',
-              color: !activeCategory ? T.ivory : T.slate,
-              cursor: 'pointer', transition: 'all 0.25s',
-            }}
+            className={`f-chip ${!activeCategory ? 'f-chip-active' : 'f-chip-default'}`}
           >
-            All ({total})
+            All Collections
           </button>
           {categories.map(cat => (
             <button key={cat.id} onClick={() => setCategory(cat.slug)}
-              style={{
-                padding: '8px 20px', borderRadius: 2,
-                border: `1.5px solid ${activeCategory === cat.slug ? T.gold : '#E0DDD5'}`,
-                background: activeCategory === cat.slug ? T.navy : '#fff',
-                fontFamily: T.cinzel, fontSize: '0.63rem', letterSpacing: '0.12em', textTransform: 'uppercase',
-                color: activeCategory === cat.slug ? T.ivory : T.slate,
-                cursor: 'pointer', transition: 'all 0.25s',
-              }}
+              className={`f-chip ${activeCategory === cat.slug ? 'f-chip-active' : 'f-chip-default'}`}
             >
-              {cat.name} ({cat.product_count})
+              {cat.name}
             </button>
           ))}
         </div>
 
-        {/* Products grid/list */}
+        {/* Results */}
         <AnimatePresence mode="wait">
           {loading ? (
-            <div style={{ display: 'grid', gap: '24px', gridTemplateColumns: view === 'grid' ? 'repeat(auto-fill, minmax(320px, 1fr))' : '1fr' }}>
+            <div className={view === 'grid' ? 'grid-3' : 'grid-1'}>
               {[...Array(6)].map((_, i) => (
-                <div key={i} style={{
-                  height: 300,
-                  background: 'linear-gradient(90deg, #E6E2DA 25%, #ECE8E0 50%, #E6E2DA 75%)',
-                  backgroundSize: '200% 100%', borderRadius: 2,
-                  animation: 'skeleton-loading 1.5s infinite',
-                }} />
+                <div key={i} className="skeleton" style={{ height: 350, borderRadius: 20 }} />
               ))}
             </div>
           ) : products.length === 0 ? (
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              style={{ textAlign: 'center', padding: '80px 0', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+              style={{ textAlign: 'center', padding: '10rem 0', opacity: 0.5 }}
             >
-              <div style={{
-                width: 64, height: 64, borderRadius: 2,
-                border: '1px solid rgba(201,168,76,0.25)',
-                background: 'rgba(201,168,76,0.06)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 8,
-              }}>
-                <FaIndustry style={{ color: T.gold, fontSize: 26 }} />
-              </div>
-              <h3 style={{ fontFamily: T.playfair, fontWeight: 700, fontSize: '1.4rem', color: T.navy }}>No Products Found</h3>
-              <p style={{ fontFamily: T.body, color: T.slate, maxWidth: 400 }}>Try adjusting your search or selecting a different category.</p>
+              <h3 className="f-display" style={{ fontSize: '2rem' }}>No results match your search</h3>
+              <p className="f-body" style={{ marginTop: 12 }}>Try adjusting your filters or browsing all collections.</p>
             </motion.div>
           ) : (
             <motion.div
-              key={`${activeCategory}-${search}`}
+              key={`${activeCategory}-${search}-${view}`}
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              style={{ display: 'grid', gap: '24px', gridTemplateColumns: view === 'grid' ? 'repeat(auto-fill, minmax(320px, 1fr))' : '1fr' }}
+              className={view === 'grid' ? 'grid-3' : 'grid-1'}
+              style={{ gap: '3rem 2rem' }}
             >
               {products.map((product, i) => {
                 const img = categoryImages[product.category_slug] || vmcImg;
                 return (
-                  <motion.div key={product.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.04 }}>
-                    <Link
-                      to={`/products/${product.slug}`}
-                      style={{
-                        textDecoration: 'none', display: 'flex',
-                        flexDirection: view === 'list' ? 'row' : 'column',
-                        background: '#fff', borderRadius: 2, overflow: 'hidden',
-                        boxShadow: '0 2px 14px rgba(28,28,23,0.06)',
-                        transition: 'all 0.35s',
-                      }}
-                      className="group hover:-translate-y-2 hover:shadow-[0_16px_48px_rgba(28,28,23,0.13)]"
-                    >
-                      {/* Image */}
-                      {view === 'grid' && (
-                        <div style={{ height: 210, overflow: 'hidden', position: 'relative', flexShrink: 0 }}>
-                          <img
-                            src={img} alt={product.name}
-                            style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.6s ease' }}
-                            className="group-hover:scale-105"
-                          />
-                          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,9,36,0.45) 0%, transparent 55%)' }} />
-                          <div style={{
-                            position: 'absolute', bottom: 12, left: 14,
-                            fontFamily: T.cinzel, fontSize: '0.58rem', letterSpacing: '0.14em',
-                            textTransform: 'uppercase', color: T.goldLt,
-                            background: 'rgba(0,9,36,0.55)', padding: '3px 8px', borderRadius: 1,
-                          }}>
-                            {product.category_name}
-                          </div>
-                        </div>
+                  <Link
+                    key={product.id}
+                    to={`/products/${product.slug}`}
+                    className="f-card"
+                    style={{ 
+                      display: 'flex', 
+                      flexDirection: view === 'list' && window.innerWidth > 768 ? 'row' : 'column',
+                      height: '100%' 
+                    }}
+                  >
+                    <div className="f-card-image" style={{ height: 280, width: view === 'list' && window.innerWidth > 768 ? '40%' : '100%', flexShrink: 0 }}>
+                      <img src={img} alt={product.name} />
+                      {product.is_featured && (
+                        <div style={{ position: 'absolute', top: 20, right: 20 }} className="f-chip f-chip-active">Featured</div>
                       )}
+                    </div>
 
-                      {/* List-view thumbnail */}
-                      {view === 'list' && (
-                        <div style={{ width: 140, flexShrink: 0, overflow: 'hidden', position: 'relative' }}>
-                          <img src={img} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.6s' }} className="group-hover:scale-105" />
-                        </div>
-                      )}
-
-                      {/* Content */}
-                      <div style={{
-                        padding: view === 'list' ? '1rem 1.5rem' : '1.35rem',
-                        display: 'flex', flexDirection: 'column',
-                        justifyContent: view === 'list' ? 'center' : 'flex-start',
-                        flexGrow: 1,
-                      }}>
-                        {view === 'grid' && (
-                          <div style={{
-                            fontFamily: T.cinzel, fontSize: '0.58rem', letterSpacing: '0.14em',
-                            textTransform: 'uppercase', color: T.gold, marginBottom: 6,
-                          }}>
-                            {product.category_name}
-                          </div>
-                        )}
-                        <h3 style={{
-                          fontFamily: T.playfair, fontWeight: 700, fontSize: '1.1rem',
-                          color: T.navy, marginBottom: 8, letterSpacing: '-0.01em',
-                          transition: 'color 0.2s', lineHeight: 1.3,
-                        }} className="group-hover:!text-[#9A7A2E]">
-                          {product.name}
-                        </h3>
-                        <p style={{
-                          fontFamily: T.body, fontSize: '0.84rem', color: T.slate,
-                          lineHeight: 1.65, flexGrow: 1, marginBottom: 14, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden'
-                        }}>
-                          {product.short_description}
-                        </p>
-                        <div style={{
-                          display: 'flex', alignItems: 'center', gap: 5,
-                          fontFamily: T.cinzel, fontSize: '0.6rem', letterSpacing: '0.12em',
-                          textTransform: 'uppercase', color: T.navy, transition: 'color 0.2s',
-                        }} className="group-hover:!text-[#C9A84C]">
-                          View Details <FaArrowRight style={{ fontSize: 8 }} />
-                        </div>
+                    <div className="f-card-body" style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+                      <div className="f-label" style={{ color: 'var(--gold)', marginBottom: 12 }}>{product.category_name}</div>
+                      <h3 className="f-display" style={{ fontSize: '1.6rem', marginBottom: 12 }}>{product.name}</h3>
+                      <p className="f-body line-clamp-2" style={{ fontSize: '0.95rem', color: 'var(--ink-mid)', marginBottom: 20, opacity: 0.8 }}>
+                        {product.short_description}
+                      </p>
+                      <div style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', gap: 8, color: 'var(--ink)', fontWeight: 600, fontSize: '0.9rem' }}>
+                        Specification Sheet <FaArrowRight size={10} />
                       </div>
-                    </Link>
-                  </motion.div>
+                    </div>
+                  </Link>
                 );
               })}
             </motion.div>
@@ -293,3 +191,4 @@ export default function Products() {
     </div>
   );
 }
+

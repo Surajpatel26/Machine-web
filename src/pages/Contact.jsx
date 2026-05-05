@@ -151,8 +151,8 @@ export default function Contact() {
     <div style={{ background: 'var(--bg-white)', minHeight: '100vh', pt: '64px' }}>
       
       {/* ── Hero Section with 3D ─────────────────────────── */}
-      <section style={{ height: '70vh', position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center' }}>
-        <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+      <section style={{ minHeight: '70vh', position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', padding: '4rem 0' }}>
+        <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 0.6 }}>
           <Canvas dpr={[1, 2]}>
             <PerspectiveCamera makeDefault position={[0, 0, 5]} />
             <Environment preset="city" />
@@ -164,21 +164,21 @@ export default function Contact() {
           </Canvas>
         </div>
 
-        <div className="max-w-wide" style={{ position: 'relative', zIndex: 1, padding: '0 2rem' }}>
+        <div className="max-w-wide" style={{ position: 'relative', zIndex: 1, width: '100%' }}>
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            style={{ maxWidth: '600px' }}
+            style={{ maxWidth: '700px' }}
           >
-            <div className="f-section-label" style={{ marginBottom: '24px' }}>
+            <div className="f-section-label" style={{ color: 'var(--brand-blue)', marginBottom: '24px' }}>
               <span>Precision Partnership</span>
             </div>
-            <h1 className="f-display" style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 0.9, color: 'var(--ink)', marginBottom: '32px' }}>
+            <h1 className="f-display" style={{ fontSize: 'clamp(3rem, 10vw, 6.5rem)', lineHeight: 0.9, color: 'var(--ink)', marginBottom: '32px' }}>
               Engineering <br />
               <span className="f-display-italic" style={{ color: 'var(--brand-blue)' }}>Connections</span>
             </h1>
-            <p className="f-body" style={{ fontSize: '1.2rem', color: 'var(--ink-mid)', maxWidth: '450px' }}>
+            <p className="f-body" style={{ fontSize: 'clamp(1rem, 2vw, 1.25rem)', color: 'var(--ink-mid)', maxWidth: '500px', opacity: 0.8 }}>
               From initial consultation to lifelong support, we are committed to your manufacturing excellence.
             </p>
           </motion.div>
@@ -186,84 +186,89 @@ export default function Contact() {
       </section>
 
       {/* ── Contact Layout ───────────────────────────────── */}
-      <section style={{ paddingBottom: '10rem' }}>
-        <div className="max-w-wide" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '80px', padding: '0 2rem' }}>
-          
-          {/* Left: Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <h2 className="f-display" style={{ fontSize: '2.5rem', marginBottom: '48px' }}>Direct <span className="f-display-italic">Reach</span></h2>
+      <section style={{ paddingBottom: '8rem' }}>
+        <div className="max-w-wide">
+          <div className="grid-2" style={{ gap: '4rem 8rem' }}>
             
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
-              <div style={{ display: 'flex', gap: '20px' }}>
-                <div style={{ width: '50px', height: '50px', borderRadius: '50%', background: 'rgba(59,107,149,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--brand-blue)' }}>
-                  <FaPhone />
+            {/* Left: Contact Info */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <h2 className="f-display" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', marginBottom: '40px' }}>Direct <span className="f-display-italic">Reach</span></h2>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
+                  <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: 'rgba(59,107,149,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--brand-blue)', flexShrink: 0 }}>
+                    <FaPhone size={18} />
+                  </div>
+                  <div>
+                    <div className="f-label" style={{ fontSize: '0.65rem', color: 'var(--ink-light)', marginBottom: '4px' }}>Telephone</div>
+                    <div className="f-body" style={{ fontSize: '1.1rem', fontWeight: 600 }}>+91 98765 43210</div>
+                  </div>
                 </div>
-                <div>
-                  <div className="f-label" style={{ fontSize: '0.7rem', color: 'var(--ink-light)', marginBottom: '4px' }}>Telephone</div>
-                  <div className="f-body" style={{ fontSize: '1.1rem', fontWeight: 600 }}>+91 98765 43210</div>
+
+                <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
+                  <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: 'rgba(59,107,149,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--brand-blue)', flexShrink: 0 }}>
+                    <FaEnvelope size={18} />
+                  </div>
+                  <div>
+                    <div className="f-label" style={{ fontSize: '0.65rem', color: 'var(--ink-light)', marginBottom: '4px' }}>Electronic Mail</div>
+                    <div className="f-body" style={{ fontSize: '1.1rem', fontWeight: 600 }}>contact@smgmachines.com</div>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
+                  <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: 'rgba(59,107,149,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--brand-blue)', flexShrink: 0 }}>
+                    <FaMapMarkerAlt size={18} />
+                  </div>
+                  <div>
+                    <div className="f-label" style={{ fontSize: '0.65rem', color: 'var(--ink-light)', marginBottom: '4px' }}>Headquarters</div>
+                    <div className="f-body" style={{ fontSize: '1.1rem', fontWeight: 600 }}>Plot 123, MIDC Industrial Area, Pune, India</div>
+                  </div>
                 </div>
               </div>
 
-              <div style={{ display: 'flex', gap: '20px' }}>
-                <div style={{ width: '50px', height: '50px', borderRadius: '50%', background: 'rgba(59,107,149,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--brand-blue)' }}>
-                  <FaEnvelope />
-                </div>
-                <div>
-                  <div className="f-label" style={{ fontSize: '0.7rem', color: 'var(--ink-light)', marginBottom: '4px' }}>Electronic Mail</div>
-                  <div className="f-body" style={{ fontSize: '1.1rem', fontWeight: 600 }}>contact@smgmachines.com</div>
-                </div>
+              <div style={{ marginTop: '56px', display: 'flex', gap: '20px' }}>
+                {[FaLinkedin, FaInstagram, FaTwitter, FaWhatsapp].map((Icon, i) => (
+                  <motion.a 
+                    key={i} href="#" 
+                    whileHover={{ y: -5, color: 'var(--brand-blue)' }}
+                    style={{ fontSize: '1.4rem', color: 'var(--ink-mid)', transition: 'color 0.2s' }}
+                  >
+                    <Icon />
+                  </motion.a>
+                ))}
               </div>
+            </motion.div>
 
-              <div style={{ display: 'flex', gap: '20px' }}>
-                <div style={{ width: '50px', height: '50px', borderRadius: '50%', background: 'rgba(59,107,149,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--brand-blue)' }}>
-                  <FaMapMarkerAlt />
-                </div>
-                <div>
-                  <div className="f-label" style={{ fontSize: '0.7rem', color: 'var(--ink-light)', marginBottom: '4px' }}>Headquarters</div>
-                  <div className="f-body" style={{ fontSize: '1.1rem', fontWeight: 600 }}>Plot 123, MIDC Industrial Area, Pune, India</div>
-                </div>
-              </div>
-            </div>
+            {/* Right: Form */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              style={{ background: '#fff', padding: 'clamp(2rem, 5vw, 4rem)', borderRadius: '32px', boxShadow: '0 40px 100px rgba(26,26,24,0.08)' }}
+            >
+              <h3 className="f-display" style={{ fontSize: '1.8rem', marginBottom: '40px' }}>Start a <span className="f-display-italic">Conversation</span></h3>
+              <ContactForm />
+            </motion.div>
 
-            <div style={{ marginTop: '64px', display: 'flex', gap: '24px' }}>
-              {[FaLinkedin, FaInstagram, FaTwitter, FaWhatsapp].map((Icon, i) => (
-                <motion.a 
-                  key={i} href="#" 
-                  whileHover={{ y: -5, color: 'var(--brand-blue)' }}
-                  style={{ fontSize: '1.5rem', color: 'var(--ink-mid)', transition: 'color 0.2s' }}
-                >
-                  <Icon />
-                </motion.a>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Right: Form */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            style={{ background: '#fff', padding: '60px', borderRadius: '40px', boxShadow: '0 30px 60px rgba(0,0,0,0.05)' }}
-          >
-            <h3 className="f-display" style={{ fontSize: '1.8rem', marginBottom: '40px' }}>Start a <span className="f-display-italic">Conversation</span></h3>
-            <ContactForm />
-          </motion.div>
-
+          </div>
         </div>
       </section>
 
       {/* ── Footer Link ──────────────────────────────────── */}
-      <section style={{ padding: '80px 0', textAlign: 'center', background: 'var(--brand-blue)' }}>
-        <h2 className="f-display" style={{ color: '#fff', fontSize: '2rem', marginBottom: '24px' }}>Join Our Engineering Network</h2>
-        <p style={{ color: 'rgba(255,255,255,0.7)', marginBottom: '32px' }}>Stay updated with the latest in CNC and VMC technology.</p>
-        <button className="btn-pill" style={{ background: '#fff', color: 'var(--brand-blue)', border: 'none', padding: '14px 28px', borderRadius: '30px', fontWeight: 600 }}>Subscribe to Ledger</button>
+      <section style={{ padding: '6rem 0', textAlign: 'center', background: 'var(--brand-blue)' }}>
+        <div className="max-w-wide">
+          <h2 className="f-display" style={{ color: '#fff', fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', marginBottom: '20px' }}>Join Our Engineering Network</h2>
+          <p className="f-body" style={{ color: 'rgba(255,255,255,0.7)', marginBottom: '32px', maxWidth: 600, margin: '0 auto 32px' }}>Stay updated with the latest in CNC and VMC technology through our monthly newsletter.</p>
+          <button className="btn-pill btn-pill-white">Subscribe to The Ledger</button>
+        </div>
       </section>
     </div>
   );
 }
+

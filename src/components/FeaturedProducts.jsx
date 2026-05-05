@@ -32,7 +32,7 @@ export default function FeaturedProducts() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 48 }}
+          style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 48, flexWrap: 'wrap', gap: 20 }}
         >
           <div>
             <span className="f-label" style={{ color: 'var(--gold)', marginBottom: 12, display: 'block' }}>Featured Machines</span>
@@ -40,7 +40,7 @@ export default function FeaturedProducts() {
               Our Flagship <span className="f-display-italic">Products</span>
             </h2>
           </div>
-          <Link to="/products" className="btn-pill btn-pill-outline" style={{ display: 'none', '@media (min-width: 768px)': { display: 'inline-flex' } }}>
+          <Link to="/products" className="btn-pill btn-pill-outline">
             View All Products
           </Link>
         </motion.div>

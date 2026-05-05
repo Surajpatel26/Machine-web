@@ -181,77 +181,90 @@ export default function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -16 }}
-            transition={{ duration: 0.25 }}
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 1, x: '100%' }}
+            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
             style={{
-              position: 'fixed', top: 64, left: 0, right: 0,
-              background: 'rgba(245,243,238,0.98)', backdropFilter: 'blur(20px)',
-              borderBottom: '1px solid rgba(26,26,24,0.1)',
-              zIndex: 999, padding: '1rem 1.5rem 1.5rem',
+              position: 'fixed', top: 0, bottom: 0, right: 0, left: 0,
+              background: 'rgba(245,243,238,0.98)', backdropFilter: 'blur(30px)',
+              zIndex: 999, display: 'flex', flexDirection: 'column',
+              padding: '80px 2rem 4rem',
             }}
           >
-            {navLinks.map(link => (
-              <div key={link.label}>
-                {link.children ? (
-                  <>
-                    <button
-                      onClick={() => setMobileExpand(p => !p)}
+            {/* Mobile Header (Search or Close is handled by toggle button but let's add search) */}
+            <div style={{ marginBottom: '2.5rem', position: 'relative' }}>
+              <FaSearch style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', color: 'var(--ink-fade)', fontSize: 13 }} />
+              <input 
+                type="text" placeholder="Search machines..." 
+                style={{ width: '100%', background: 'rgba(26,26,24,0.05)', border: 'none', padding: '14px 14px 14px 44px', borderRadius: 12, outline: 'none' }}
+              />
+            </div>
+
+            <div style={{ flexGrow: 1, overflowY: 'auto' }}>
+              {navLinks.map((link, idx) => (
+                <div key={link.label}>
+                  {link.children ? (
+                    <div style={{ borderBottom: '1px solid rgba(26,26,24,0.06)' }}>
+                      <button
+                        onClick={() => setMobileExpand(p => !p)}
+                        style={{
+                          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                          width: '100%', padding: '1.25rem 0', background: 'transparent', border: 'none',
+                          cursor: 'pointer', fontFamily: 'var(--display)',
+                          fontSize: '1.5rem', color: 'var(--ink)',
+                        }}
+                      >
+                        {link.label}
+                        <FaChevronDown style={{ fontSize: 14, transition: 'transform 0.3s', transform: mobileExpand ? 'rotate(180deg)' : 'rotate(0)' }} />
+                      </button>
+                      <AnimatePresence>
+                        {mobileExpand && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
+                            style={{ overflow: 'hidden' }}
+                          >
+                            <div style={{ padding: '0 0 1.25rem 1rem', display: 'flex', flexDirection: 'column', gap: 12 }}>
+                              {link.children.map(c => (
+                                <Link key={c.label} to={c.to}
+                                  style={{
+                                    display: 'block', padding: '4px 0',
+                                    fontFamily: 'var(--sans)', fontSize: '1rem',
+                                    color: 'var(--ink-mid)', textDecoration: 'none',
+                                  }}
+                                >
+                                  {c.label}
+                                </Link>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  ) : (
+                    <Link to={link.to}
                       style={{
-                        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                        width: '100%', padding: '12px 0', background: 'transparent', border: 'none',
-                        cursor: 'pointer', fontFamily: 'var(--sans)', fontWeight: 600,
-                        fontSize: '1rem', color: 'var(--ink)',
-                        borderBottom: '1px solid rgba(26,26,24,0.07)',
+                        display: 'block', padding: '1.25rem 0',
+                        fontFamily: 'var(--display)',
+                        fontSize: '1.5rem',
+                        color: isActive(link.to) ? 'var(--brand-blue)' : 'var(--ink)',
+                        textDecoration: 'none',
+                        borderBottom: '1px solid rgba(26,26,24,0.06)',
                       }}
                     >
                       {link.label}
-                      <FaChevronDown style={{ fontSize: 11, transition: 'transform 0.2s', transform: mobileExpand ? 'rotate(180deg)' : 'rotate(0)' }} />
-                    </button>
-                    <AnimatePresence>
-                      {mobileExpand && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
-                          style={{ overflow: 'hidden' }}
-                        >
-                          <div style={{ padding: '8px 0 0 16px' }}>
-                            {link.children.map(c => (
-                              <Link key={c.label} to={c.to}
-                                style={{
-                                  display: 'block', padding: '10px 0',
-                                  fontFamily: 'var(--sans)', fontSize: '0.9rem',
-                                  color: 'var(--ink-mid)', textDecoration: 'none',
-                                  borderBottom: '1px solid rgba(26,26,24,0.05)',
-                                }}
-                              >
-                                {c.label}
-                              </Link>
-                            ))}
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </>
-                ) : (
-                  <Link to={link.to}
-                    style={{
-                      display: 'block', padding: '12px 0',
-                      fontFamily: 'var(--sans)', fontWeight: isActive(link.to) ? 600 : 400,
-                      fontSize: '1rem',
-                      color: isActive(link.to) ? 'var(--ink)' : 'var(--ink-mid)',
-                      textDecoration: 'none',
-                      borderBottom: '1px solid rgba(26,26,24,0.07)',
-                    }}
-                  >
-                    {link.label}
-                  </Link>
-                )}
-              </div>
-            ))}
-            <Link to="/contact" className="btn-pill btn-pill-dark" style={{ marginTop: 16, width: '100%', justifyContent: 'center' }}>
-              Get a Quote
-            </Link>
+                      {isActive(link.to) && <span style={{ marginLeft: 12, fontSize: '0.8rem', verticalAlign: 'middle' }}>●</span>}
+                    </Link>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            <div style={{ marginTop: 'auto', paddingTop: '2rem' }}>
+              <Link to="/contact" className="btn-pill btn-pill-dark" style={{ width: '100%', justifyContent: 'center', height: 56 }}>
+                Request Consultation
+              </Link>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

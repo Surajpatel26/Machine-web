@@ -47,36 +47,91 @@ export default function Home() {
       <Testimonials />
 
       {/* ── Infrastructure Preview ───────────────────────── */}
-      <section style={{ padding: '8rem 0', background: 'var(--bg)' }}>
+      <section style={{ padding: '8rem 0', background: 'var(--bg)', overflow: 'hidden' }}>
         <div className="max-w-wide">
-          <div className="grid-2" style={{ alignItems: 'center' }}>
+          <div className="grid-2" style={{ alignItems: 'center', gap: '5rem' }}>
             
-            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-              <span className="f-label" style={{ color: 'var(--gold)', marginBottom: 24, display: 'block' }}>Our Facility</span>
-              <h2 className="f-display" style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', marginBottom: 24 }}>
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }} 
+              whileInView={{ opacity: 1, x: 0 }} 
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <div className="f-section-label" style={{ color: 'var(--gold)', marginBottom: 20 }}>
+                <span style={{ width: 40, height: 1, background: 'var(--gold)', display: 'inline-block', verticalAlign: 'middle', marginRight: 12 }}></span>
+                Precision Facility
+              </div>
+              <h2 className="f-display" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', marginBottom: 28, lineHeight: 1.1 }}>
                 World-Class <span className="f-display-italic">Infrastructure</span>
               </h2>
-              <p className="f-body" style={{ color: 'var(--ink-mid)', fontSize: '1.1rem', marginBottom: 32, maxWidth: 480 }}>
-                Our 50,000 sq. ft. state-of-the-art manufacturing facility houses advanced CNC production equipment, CMM inspection rooms, and dedicated assembly bays. Every machine undergoes rigorous quality checks before delivery.
+              <p className="f-body" style={{ color: 'var(--ink-mid)', fontSize: '1.15rem', marginBottom: 40, maxWidth: 540, opacity: 0.9 }}>
+                Our 50,000 sq. ft. state-of-the-art manufacturing facility in Rajkot represents the pinnacle of engineering excellence. We combine advanced CNC production with aerospace-grade inspection protocols.
               </p>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginBottom: 40 }}>
-                {infraStats.map(stat => (
-                  <div key={stat.title}>
-                    <div className="f-display" style={{ fontSize: '1.5rem', color: 'var(--ink)' }}>{stat.value}</div>
-                    <div className="f-label" style={{ color: 'var(--ink-light)', marginTop: 4 }}>{stat.title}</div>
-                  </div>
+              <div className="grid-2" style={{ gap: '2rem 3rem', marginBottom: 48 }}>
+                {infraStats.map((stat, i) => (
+                  <motion.div 
+                    key={stat.title}
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1 }}
+                    style={{ borderLeft: '1px solid rgba(26,26,24,0.1)', paddingLeft: 20 }}
+                  >
+                    <div className="f-display" style={{ fontSize: '1.75rem', color: 'var(--ink)', marginBottom: 4 }}>{stat.value}</div>
+                    <div className="f-label" style={{ color: 'var(--ink-light)', fontSize: '0.65rem' }}>{stat.title}</div>
+                  </motion.div>
                 ))}
               </div>
 
-              <Link to="/infrastructure" className="btn-pill btn-pill-outline">
-                View Infrastructure
+              <Link to="/infrastructure" className="btn-pill btn-pill-dark">
+                Explore Our Facility
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" style={{ marginLeft: 4 }}>
+                  <path d="M3.75 9H14.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M9.75 4.5L14.25 9L9.75 13.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
               </Link>
             </motion.div>
 
-            <motion.div initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} style={{ height: '100%' }}>
-              <div style={{ borderRadius: '24px', overflow: 'hidden', height: '100%', minHeight: 500 }}>
-                <img src={factoryImg} alt="Factory" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }} 
+              whileInView={{ opacity: 1, scale: 1 }} 
+              viewport={{ once: true }}
+              transition={{ duration: 1, ease: [0.23, 1, 0.32, 1] }}
+              className="relative"
+              style={{ height: '100%', minHeight: 450 }}
+            >
+              <div style={{ 
+                borderRadius: '32px', 
+                overflow: 'hidden', 
+                height: '100%', 
+                boxShadow: '0 40px 100px rgba(26,26,24,0.15)',
+                position: 'relative',
+                zIndex: 2
+              }}>
+                <img src={factoryImg} alt="SMG Machines Manufacturing Facility" className="w-full h-full object-cover" />
+                <div style={{ 
+                  position: 'absolute', inset: 0, 
+                  background: 'linear-gradient(to bottom, transparent 60%, rgba(26,26,24,0.4))' 
+                }} />
+              </div>
+              
+              {/* Decorative elements */}
+              <div style={{ 
+                position: 'absolute', bottom: -30, right: -30, 
+                width: 200, height: 200, border: '2px solid var(--gold)', 
+                borderRadius: '32px', opacity: 0.15, zIndex: 1 
+              }} />
+              
+              <div style={{ 
+                position: 'absolute', top: 30, right: 30, 
+                background: 'rgba(255,255,255,0.9)', backdropFilter: 'blur(10px)',
+                padding: '16px 24px', borderRadius: '16px', zIndex: 3,
+                boxShadow: '0 12px 32px rgba(0,0,0,0.1)',
+                display: 'flex', alignItems: 'center', gap: 12
+              }}>
+                <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#10B981', boxShadow: '0 0 10px #10B981' }} />
+                <span className="f-label" style={{ color: 'var(--ink)', fontSize: '0.7rem' }}>Certified Production Live</span>
               </div>
             </motion.div>
 
