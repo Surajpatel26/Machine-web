@@ -10,6 +10,15 @@ import spmImg   from '../assets/spm_machine.png';
 import grindImg from '../assets/grinding_machine.png';
 import factoryImg from '../assets/factory_floor.png';
 
+const categoryImages = {
+  'cnc-machines': cncImg,
+  'vmc-machines': vmcImg,
+  'hmc-machines': hmcImg,
+  'special-purpose-machines': spmImg,
+  'drilling-machines': spmImg,
+  'grinding-machines': grindImg,
+};
+
 export default function Products() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [products,   setProducts]   = useState([]);

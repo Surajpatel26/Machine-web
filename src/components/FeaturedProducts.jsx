@@ -7,12 +7,22 @@ import vmcImg   from '../assets/hero_vmc.png';
 import cncImg   from '../assets/cnc_lathe.png';
 import hmcImg   from '../assets/hmc_machine.png';
 import spmImg   from '../assets/spm_machine.png';
+import grindImg from '../assets/grinding_machine.png';
+
+const categoryImages = {
+  'cnc-machines': cncImg,
+  'vmc-machines': vmcImg,
+  'hmc-machines': hmcImg,
+  'special-purpose-machines': spmImg,
+  'drilling-machines': spmImg,
+  'grinding-machines': grindImg,
+};
 
 const fallbackProducts = [
-  { id: 1, name: 'VMC 850', short_description: 'High-speed vertical machining center.', category_name: 'VMC Machines', slug: 'vmc-850', is_featured: true, img: vmcImg },
-  { id: 2, name: 'CNC TC-200', short_description: 'Precision two-axis CNC turning center.', category_name: 'CNC Turning', slug: 'cnc-tc-200', is_featured: true, img: cncImg },
-  { id: 3, name: 'HMC 500', short_description: 'Horizontal machining center.', category_name: 'HMC Machines', slug: 'hmc-500', is_featured: true, img: hmcImg },
-  { id: 4, name: 'SPM Transfer', short_description: 'Custom multi-spindle transfer machine.', category_name: 'Special Purpose', slug: 'spm-transfer', is_featured: true, img: spmImg },
+  { id: 1, name: 'VMC 850', short_description: 'High-speed vertical machining center.', category_name: 'VMC Machines', category_slug: 'vmc-machines', is_featured: true },
+  { id: 2, name: 'CNC TC-200', short_description: 'Precision two-axis CNC turning center.', category_name: 'CNC Turning', category_slug: 'cnc-machines', is_featured: true },
+  { id: 3, name: 'HMC 500', short_description: 'Horizontal machining center.', category_name: 'HMC Machines', category_slug: 'hmc-machines', is_featured: true },
+  { id: 4, name: 'SPM Transfer', short_description: 'Custom multi-spindle transfer machine.', category_name: 'Special Purpose', category_slug: 'special-purpose-machines', is_featured: true },
 ];
 
 export default function FeaturedProducts() {
@@ -56,7 +66,7 @@ export default function FeaturedProducts() {
             >
               <Link to={`/products/${product.slug}`} className="f-card">
                 <div className="f-card-image" style={{ height: 280 }}>
-                  <img src={product.img || vmcImg} alt={product.name} />
+                  <img src={categoryImages[product.category_slug] || vmcImg} alt={product.name} />
                   {product.is_featured && (
                     <div style={{ position: 'absolute', top: 16, right: 16, background: 'rgba(255,255,255,0.9)', padding: '6px 12px', borderRadius: 20, fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase' }}>
                       Featured
