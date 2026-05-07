@@ -22,14 +22,13 @@ const fallbackProducts = [
   { id: 1, name: 'VMC 850', short_description: 'High-speed vertical machining center.', category_name: 'VMC Machines', category_slug: 'vmc-machines', is_featured: true },
   { id: 2, name: 'CNC TC-200', short_description: 'Precision two-axis CNC turning center.', category_name: 'CNC Turning', category_slug: 'cnc-machines', is_featured: true },
   { id: 3, name: 'HMC 500', short_description: 'Horizontal machining center.', category_name: 'HMC Machines', category_slug: 'hmc-machines', is_featured: true },
-  { id: 4, name: 'SPM Transfer', short_description: 'Custom multi-spindle transfer machine.', category_name: 'Special Purpose', category_slug: 'special-purpose-machines', is_featured: true },
 ];
 
 export default function FeaturedProducts() {
   const [products, setProducts] = useState(fallbackProducts);
 
   useEffect(() => {
-    api.get('/products?featured=true&limit=4')
+    api.get('/products?featured=true&limit=3')
       .then(res => { if (res.data?.data?.length) setProducts(res.data.data); })
       .catch(() => {});
   }, []);
@@ -55,8 +54,8 @@ export default function FeaturedProducts() {
           </Link>
         </motion.div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '2rem' }}>
-          {products.slice(0, 4).map((product, i) => (
+        <div className="grid-3" style={{ gap: '2rem' }}>
+          {products.slice(0, 3).map((product, i) => (
             <motion.div
               key={product.id}
               initial={{ opacity: 0, y: 30 }}

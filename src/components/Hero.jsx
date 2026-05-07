@@ -2,11 +2,11 @@ import React, { useRef, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Environment, Float, ContactShadows, PresentationControls } from '@react-three/drei';
+import { Environment, Float, ContactShadows, PresentationControls, Instances, Instance, PerformanceMonitor } from '@react-three/drei';
 import * as THREE from 'three';
 
-// A procedural Gear component
-function Gear({ position = [0, 0, 0], scale = 1, rotation = [0, 0, 0], speed = 1, color = "#1A202C", metalness = 0.9 }) {
+// Optimized Gear component using Instances for teeth
+function Gear({ position = [0, 0, 0], scale = 1, rotation = [0, 0, 0], speed = 1, color = "#1A202C", metalness = 0.8 }) {
   const group = useRef();
   
   useFrame((state, delta) => {
@@ -15,40 +15,38 @@ function Gear({ position = [0, 0, 0], scale = 1, rotation = [0, 0, 0], speed = 1
     }
   });
 
-  const teethCount = 14;
-  const teeth = Array.from({ length: teethCount }).map((_, i) => {
-    const angle = (i / teethCount) * Math.PI * 2;
-    const radius = 1.4;
-    return (
-      <mesh key={i} position={[Math.cos(angle) * radius, Math.sin(angle) * radius, 0]} rotation={[0, 0, angle]} castShadow receiveShadow>
-        <boxGeometry args={[0.3, 0.4, 0.5]} />
-        <meshPhysicalMaterial color={color} metalness={metalness} roughness={0.2} clearcoat={1} />
-      </mesh>
-    );
-  });
+  const teethCount = 12; // Slightly reduced for performance
+  const radius = 1.4;
 
   return (
     <group ref={group} position={position} scale={scale} rotation={rotation}>
       {/* Main body */}
-      <mesh rotation={[Math.PI / 2, 0, 0]} castShadow receiveShadow>
-        <cylinderGeometry args={[1.35, 1.35, 0.4, 32]} />
-        <meshPhysicalMaterial color={color} metalness={metalness} roughness={0.2} clearcoat={1} />
+      <mesh rotation={[Math.PI / 2, 0, 0]}>
+        <cylinderGeometry args={[1.35, 1.35, 0.4, 24]} />
+        <meshStandardMaterial color={color} metalness={metalness} roughness={0.3} />
       </mesh>
       
       {/* Inner hub */}
-      <mesh rotation={[Math.PI / 2, 0, 0]} castShadow receiveShadow position={[0, 0, 0.01]}>
-        <cylinderGeometry args={[0.7, 0.7, 0.42, 32]} />
-        <meshPhysicalMaterial color="#0F141E" metalness={1} roughness={0.4} />
+      <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 0, 0.01]}>
+        <cylinderGeometry args={[0.7, 0.7, 0.42, 16]} />
+        <meshStandardMaterial color="#0F141E" metalness={0.9} roughness={0.5} />
       </mesh>
 
-      {/* Shaft hole */}
-      <mesh rotation={[Math.PI / 2, 0, 0]} castShadow receiveShadow position={[0, 0, 0.02]}>
-        <cylinderGeometry args={[0.3, 0.3, 0.44, 16]} />
-        <meshPhysicalMaterial color="#000" metalness={0.1} roughness={0.9} />
-      </mesh>
-
-      {/* Teeth */}
-      {teeth}
+      {/* Instanced Teeth for maximum performance */}
+      <Instances range={teethCount}>
+        <boxGeometry args={[0.3, 0.4, 0.5]} />
+        <meshStandardMaterial color={color} metalness={metalness} roughness={0.3} />
+        {Array.from({ length: teethCount }).map((_, i) => {
+          const angle = (i / teethCount) * Math.PI * 2;
+          return (
+            <Instance 
+              key={i} 
+              position={[Math.cos(angle) * radius, Math.sin(angle) * radius, 0]} 
+              rotation={[0, 0, angle]} 
+            />
+          );
+        })}
+      </Instances>
     </group>
   );
 }
@@ -90,10 +88,10 @@ export default function Hero() {
       
       {/* 3D WebGL Background */}
       <div style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, zIndex: 0 }}>
-        <Canvas camera={{ position: [0, 0, 7], fov: 45 }} dpr={[1, 2]}>
+        <Canvas camera={{ position: [0, 0, 7], fov: 45 }} dpr={[1, 1.5]} gl={{ antialias: false, powerPreference: 'high-performance' }}>
           <color attach="background" args={['#F5F3EE']} />
           <ambientLight intensity={0.5} />
-          <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
+          <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} />
           
           <Suspense fallback={null}>
             <PresentationControls
@@ -107,7 +105,7 @@ export default function Hero() {
               <AbstractMachinedPart />
             </PresentationControls>
             <Environment preset="city" />
-            <ContactShadows position={[0, -2.5, 0]} opacity={0.4} scale={20} blur={2} far={4} color="#000924" />
+            <ContactShadows position={[0, -2.5, 0]} opacity={0.3} scale={15} blur={2.5} far={4} color="#000" />
           </Suspense>
         </Canvas>
       </div>

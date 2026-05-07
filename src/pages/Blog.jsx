@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaArrowRight, FaCalendarAlt, FaUser } from 'react-icons/fa';
+import { FaArrowRight, FaCalendarAlt, FaUser, FaSearch } from 'react-icons/fa';
 import api from '../lib/api';
+import blogHeroImg from '../assets/blog_hero_editorial_1778126494481.png';
 
 export default function Blog() {
   const [blogs, setBlogs] = useState([]);
@@ -28,18 +29,84 @@ export default function Blog() {
   return (
     <div style={{ background: 'var(--bg-white)', minHeight: '100vh' }}>
 
-      {/* Header */}
-      <section style={{ paddingTop: '10rem', paddingBottom: '6rem', textAlign: 'center', background: 'var(--bg)' }}>
-        <div className="max-w-text mx-auto px-6">
-          <div className="f-section-label" style={{ justifyContent: 'center', marginBottom: 24 }}>
-            <span>The Ledger</span>
+      {/* ── Unique Static Editorial Hero ── */}
+      <section style={{ 
+        minHeight: '85vh', position: 'relative', overflow: 'hidden', 
+        display: 'flex', alignItems: 'center', background: 'var(--bg)',
+        borderBottom: '1px solid rgba(26,26,24,0.08)'
+      }}>
+        {/* Technical Grid Pattern Background (Static CSS) */}
+        <div style={{ 
+          position: 'absolute', inset: 0, zIndex: 0, opacity: 0.4,
+          backgroundImage: `linear-gradient(rgba(26,26,24,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(26,26,24,0.05) 1px, transparent 1px)`,
+          backgroundSize: '40px 40px'
+        }} />
+
+        <div className="max-w-wide" style={{ position: 'relative', zIndex: 1, width: '100%' }}>
+          <div className="grid-2" style={{ alignItems: 'center', gap: '2rem' }}>
+            
+            {/* Left Column: Typography */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
+            >
+              <div className="f-section-label" style={{ color: 'var(--gold)', marginBottom: 24 }}>
+                <span>Archive & Insights</span>
+              </div>
+              <h1 className="f-display" style={{ fontSize: 'clamp(4rem, 10vw, 8rem)', lineHeight: 0.85, color: 'var(--ink)', marginBottom: 40, letterSpacing: '-0.03em' }}>
+                The <br />
+                <span className="f-display-italic" style={{ color: 'var(--brand-blue)' }}>Ledger.</span>
+              </h1>
+              <p className="f-body" style={{ fontSize: '1.25rem', color: 'var(--ink-mid)', maxWidth: '450px', marginBottom: 56, lineHeight: 1.5 }}>
+                A curated repository of technical mastery, industrial trends, and the future of precision engineering.
+              </p>
+              
+              <div style={{ 
+                background: '#fff', padding: '8px 8px 8px 24px', borderRadius: '40px', 
+                display: 'flex', alignItems: 'center', gap: 16, maxWidth: 450,
+                boxShadow: '0 30px 60px rgba(0,0,0,0.06)', border: '1px solid rgba(26,26,24,0.08)'
+              }}>
+                <FaSearch style={{ color: 'var(--ink-fade)' }} />
+                <input 
+                  type="text" 
+                  placeholder="Search the ledger..." 
+                  style={{ border: 'none', background: 'transparent', outline: 'none', width: '100%', fontFamily: 'var(--sans)', fontSize: '0.95rem' }} 
+                />
+                <button className="btn-pill" style={{ background: 'var(--brand-blue)', color: '#fff', border: 'none', padding: '12px 24px', borderRadius: '30px', fontSize: '0.85rem', fontWeight: 600 }}>
+                  Explore
+                </button>
+              </div>
+            </motion.div>
+
+            {/* Right Column: Editorial Visual (Static) */}
+            <motion.div 
+              style={{ position: 'relative', height: '600px', display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1.2, delay: 0.2 }}
+            >
+              <div style={{ 
+                width: '90%', height: '80%', borderRadius: '32px', overflow: 'hidden',
+                boxShadow: '0 50px 100px rgba(0,0,0,0.15)', position: 'relative',
+                transform: 'rotate(2deg)'
+              }}>
+                <img src={blogHeroImg} alt="Technical Mastery" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(26,26,24,0.3), transparent)' }} />
+              </div>
+              
+              {/* Overlapping Badge */}
+              <div style={{ 
+                position: 'absolute', bottom: '15%', left: '0', background: 'var(--ink)', color: '#fff',
+                padding: '24px 32px', borderRadius: '24px', boxShadow: '0 20px 40px rgba(0,0,0,0.2)',
+                transform: 'rotate(-3deg)', maxWidth: '240px'
+              }}>
+                <div className="f-label" style={{ color: 'var(--gold)', marginBottom: 8 }}>Volume IV</div>
+                <div className="f-display" style={{ fontSize: '1.2rem' }}>Precision Intelligence Report</div>
+              </div>
+            </motion.div>
+
           </div>
-          <h1 className="f-display" style={{ fontSize: 'clamp(3rem, 6vw, 4.5rem)', color: 'var(--ink)', marginBottom: 24 }}>
-            Insights on <span className="f-display-italic">Engineering.</span>
-          </h1>
-          <p className="f-body text-lg" style={{ color: 'var(--ink-mid)', maxWidth: 500, margin: '0 auto', fontSize: '1.1rem' }}>
-            Industry news, technical deep-dives, and thought leadership from the masters of precision machining.
-          </p>
         </div>
       </section>
 

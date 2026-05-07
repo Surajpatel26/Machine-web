@@ -140,9 +140,9 @@ export default function Home() {
       </section>
 
       {/* ── CTA Banner ──────────────────────────────────── */}
-      <section style={{ padding: '6rem 0', background: 'var(--bg-white)' }}>
-        <div className="max-w-wide">
-          <div style={{ background: 'var(--ink)', borderRadius: 32, padding: '5rem 3rem', textAlign: 'center', color: '#fff' }}>
+      <section style={{ padding: '4rem 0', background: 'var(--bg-white)' }}>
+        <div className="mx-auto" style={{ maxWidth: '1000px', padding: '0 2rem' }}>
+          <div style={{ background: 'var(--ink)', borderRadius: 32, padding: '3rem 2rem', textAlign: 'center', color: '#fff' }}>
             <span className="f-label" style={{ color: 'var(--gold)', marginBottom: 20, display: 'block' }}>Ready to Upgrade?</span>
             <h2 className="f-display" style={{ fontSize: 'clamp(2rem, 3.5vw, 3rem)', marginBottom: 24, maxWidth: 700, margin: '0 auto 24px' }}>
               Upgrade Your Manufacturing <span className="f-display-italic">Capabilities</span>

@@ -3,37 +3,45 @@ import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Float, PerspectiveCamera, Environment, MeshDistortMaterial, Sphere } from '@react-three/drei';
 import { FaAward, FaUsers, FaLightbulb, FaHandshake, FaArrowRight, FaGlobe, FaCogs, FaTools } from 'react-icons/fa';
+import aboutPrecisionImg from '../assets/about_precision.png';
+import aboutTeamImg from '../assets/about_team.png';
+import { Link } from 'react-router-dom';
 
-// ── 3D Visual Component (Minimalist Precision Sphere) ────────
-function PrecisionSphere() {
+// ── 3D Visual Component (The Neural Grid — Heritage Edition) ────────
+function PrecisionNetwork() {
   const group = useRef();
   
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
-    group.current.rotation.y = t * 0.2;
+    group.current.rotation.y = t * 0.1;
     group.current.rotation.x = Math.sin(t / 4) * 0.1;
   });
 
   return (
     <group ref={group}>
-      <mesh>
-        <sphereGeometry args={[1.8, 32, 32]} />
-        <meshStandardMaterial 
-          color="#3B6B95" 
-          wireframe 
-          transparent 
-          opacity={0.3} 
-        />
-      </mesh>
-      <mesh>
-        <sphereGeometry args={[0.5, 32, 32]} />
-        <meshStandardMaterial 
-          color="#C9A84C" 
-          emissive="#C9A84C" 
-          emissiveIntensity={2} 
-        />
-      </mesh>
-      <Environment preset="city" />
+      <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
+        <mesh position={[0, 0, 0]}>
+          <sphereGeometry args={[2.2, 32, 32]} />
+          <meshStandardMaterial 
+            color="#3B6B95" 
+            wireframe 
+            transparent 
+            opacity={0.12} 
+          />
+        </mesh>
+        <Sphere args={[0.7, 32, 32]} position={[0, 0, 0]}>
+          <MeshDistortMaterial
+            color="#C9A84C"
+            speed={2}
+            distort={0.4}
+            radius={1}
+            emissive="#C9A84C"
+            emissiveIntensity={0.8}
+          />
+        </Sphere>
+      </Float>
+      {/* Heritage Floor Grid */}
+      <gridHelper args={[30, 60, "#C9A84C", "rgba(26,26,24,0.03)"]} position={[0, -3.5, 0]} rotation={[0, 0, 0]} />
     </group>
   );
 }
@@ -70,13 +78,13 @@ export default function About() {
       {/* ── Hero Section ── */}
       <section style={{ minHeight: '90vh', position: 'relative', display: 'flex', alignItems: 'center', padding: '4rem 0' }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 0.7 }}>
-          <Canvas dpr={[1, 2]}>
+          <Canvas dpr={[1, 1.5]} gl={{ antialias: false, powerPreference: 'high-performance' }}>
             <PerspectiveCamera makeDefault position={[0, 0, 5]} />
             <Environment preset="city" />
             <ambientLight intensity={0.5} />
             <pointLight position={[10, 10, 10]} intensity={1} />
             <Suspense fallback={null}>
-              <PrecisionSphere />
+              <PrecisionNetwork />
             </Suspense>
           </Canvas>
         </div>
@@ -127,26 +135,36 @@ export default function About() {
               </div>
             </motion.div>
 
-            <div className="grid-2" style={{ gap: '20px' }}>
-              {[
-                { label: 'Installed Base', value: '2000+' },
-                { label: 'Global Reach', value: '15+ Nations' },
-                { label: 'Engineering', value: '25 Years' },
-                { label: 'Team Experts', value: '200+' },
-              ].map((stat, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  style={{ padding: '2rem', background: '#fff', borderRadius: '24px', border: '1px solid rgba(26,26,24,0.05)', textAlign: 'center', boxShadow: '0 10px 30px rgba(0,0,0,0.02)' }}
-                >
-                  <div className="f-display" style={{ fontSize: '2rem', color: 'var(--brand-blue)', marginBottom: '8px' }}>{stat.value}</div>
-                  <div className="f-label" style={{ fontSize: '0.65rem', color: 'var(--ink-light)', textTransform: 'uppercase' }}>{stat.label}</div>
-                </motion.div>
-              ))}
-            </div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1 }}
+              style={{ borderRadius: '32px', overflow: 'hidden', boxShadow: '0 40px 100px rgba(0,0,0,0.1)' }}
+            >
+              <img src={aboutPrecisionImg} alt="Precision Engineering" style={{ width: '100%', height: 'auto', display: 'block' }} />
+            </motion.div>
+          </div>
+
+          <div className="grid-4" style={{ gap: '20px', marginTop: '6rem' }}>
+            {[
+              { label: 'Installed Base', value: '2000+' },
+              { label: 'Global Reach', value: '15+ Nations' },
+              { label: 'Engineering', value: '25 Years' },
+              { label: 'Team Experts', value: '200+' },
+            ].map((stat, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                style={{ padding: '2.5rem', background: '#fff', borderRadius: '24px', border: '1px solid rgba(26,26,24,0.05)', textAlign: 'center', boxShadow: '0 10px 30px rgba(0,0,0,0.02)' }}
+              >
+                <div className="f-display" style={{ fontSize: '2.5rem', color: 'var(--brand-blue)', marginBottom: '8px' }}>{stat.value}</div>
+                <div className="f-label" style={{ fontSize: '0.65rem', color: 'var(--ink-light)', textTransform: 'uppercase' }}>{stat.label}</div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -229,21 +247,31 @@ export default function About() {
       </section>
 
       {/* ── Closing CTA ── */}
-      <section style={{ padding: '8rem 0', textAlign: 'center', background: 'var(--brand-blue)' }}>
-        <div className="max-w-text">
+      <section style={{ padding: '10rem 0', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+        <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+          <img src={aboutTeamImg} alt="Our Team" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'rgba(59,107,149,0.92)' }} />
+        </div>
+        
+        <div className="max-w-text" style={{ position: 'relative', zIndex: 1 }}>
           <h2 className="f-display" style={{ color: '#fff', fontSize: 'clamp(2.5rem, 6vw, 4rem)', lineHeight: 1.1, marginBottom: '24px' }}>
             Join Our <span className="f-display-italic">Future</span>
           </h2>
           <p className="f-body" style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1.2rem', marginBottom: '48px' }}>
             Be part of the next chapter in precision engineering excellence.
           </p>
-          <motion.button
+          <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="btn-pill btn-pill-white"
+            style={{ display: 'inline-block' }}
           >
-            Contact Our Experts
-          </motion.button>
+            <Link
+              to="/contact"
+              className="btn-pill btn-pill-white"
+            >
+              Contact Our Experts
+            </Link>
+          </motion.div>
         </div>
       </section>
     </div>

@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, Outlet, Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Toaster } from 'react-hot-toast';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -32,14 +33,54 @@ function ScrollToTop() {
 }
 
 const PageLoader = () => (
-  <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-white)' }}>
+  <div style={{ position: 'fixed', inset: 0, zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-white)' }}>
     <div className="f-loader-bar"><div className="f-loader-bar-fill" /></div>
   </div>
 );
 
+const GlobalInitialLoader = () => {
+  const [show, setShow] = React.useState(true);
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => setShow(false), 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <AnimatePresence>
+      {show && (
+        <motion.div
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+          style={{
+            position: 'fixed', inset: 0, zIndex: 10000,
+            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+            background: 'var(--bg)', gap: '1.5rem'
+          }}
+        >
+          <div className="f-loader-bar">
+            <div className="f-loader-bar-fill" style={{ animationDuration: '2s' }} />
+          </div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="f-label"
+            style={{ color: 'var(--ink-light)', fontSize: '0.65rem' }}
+          >
+            SMG MACHINES — PRECISION ENGINEERING
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+
 export default function App() {
   return (
     <Router>
+      <GlobalInitialLoader />
       <ScrollToTop />
       <Toaster
         position="top-right"

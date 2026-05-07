@@ -4,6 +4,7 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { Float, PerspectiveCamera, Environment, MeshDistortMaterial } from '@react-three/drei';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaWhatsapp, FaPaperPlane, FaCheckCircle, FaLinkedin, FaInstagram, FaTwitter } from 'react-icons/fa';
 import api from '../lib/api';
+import contactSupportImg from '../assets/contact_support.png';
 
 // ── 3D Visual Component (Digital Twin Scan) ─────────────────────
 function DigitalTwin() {
@@ -24,7 +25,7 @@ function DigitalTwin() {
       <Float speed={1} rotationIntensity={0.2} floatIntensity={0.5}>
         {/* Wireframe Core Part */}
         <mesh>
-          <torusKnotGeometry args={[1.5, 0.4, 128, 32]} />
+          <torusKnotGeometry args={[1.5, 0.4, 64, 16]} />
           <meshStandardMaterial 
             color="#3B6B95" 
             wireframe 
@@ -35,11 +36,11 @@ function DigitalTwin() {
         
         {/* Solid highlights */}
         <mesh>
-          <torusKnotGeometry args={[1.49, 0.39, 128, 32]} />
+          <torusKnotGeometry args={[1.49, 0.39, 64, 16]} />
           <meshStandardMaterial 
             color="#C9A84C" 
             emissive="#C9A84C"
-            emissiveIntensity={0.5}
+            emissiveIntensity={0.3}
             transparent 
             opacity={0.1}
           />
@@ -153,7 +154,7 @@ export default function Contact() {
       {/* ── Hero Section with 3D ─────────────────────────── */}
       <section style={{ minHeight: '70vh', position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', padding: '4rem 0' }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 0.6 }}>
-          <Canvas dpr={[1, 2]}>
+          <Canvas dpr={[1, 1.5]} gl={{ antialias: false, powerPreference: 'high-performance' }}>
             <PerspectiveCamera makeDefault position={[0, 0, 5]} />
             <Environment preset="city" />
             <ambientLight intensity={0.5} />
@@ -257,6 +258,26 @@ export default function Contact() {
             </motion.div>
 
           </div>
+        </div>
+      </section>
+
+      {/* ── Global Presence Visual ────────────────────────── */}
+      <section style={{ paddingBottom: '8rem' }}>
+        <div className="max-w-wide">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.98 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2 }}
+            style={{ borderRadius: '48px', overflow: 'hidden', boxShadow: '0 40px 100px rgba(0,0,0,0.1)', height: 'clamp(400px, 60vh, 700px)', position: 'relative' }}
+          >
+            <img src={contactSupportImg} alt="Technical Support Team" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <div style={{ position: 'absolute', bottom: '40px', left: '40px', background: 'rgba(255,255,255,0.9)', backdropFilter: 'blur(10px)', padding: '24px 32px', borderRadius: '24px', maxWidth: '350px' }}>
+              <div className="f-label" style={{ color: 'var(--brand-blue)', marginBottom: '8px' }}>Global Reach</div>
+              <h4 className="f-display" style={{ fontSize: '1.5rem', marginBottom: '12px' }}>Engineering Support</h4>
+              <p className="f-body" style={{ fontSize: '0.9rem', color: 'var(--ink-mid)' }}>Our dedicated experts are available across three continents to ensure your production never stops.</p>
+            </div>
+          </motion.div>
         </div>
       </section>
 
