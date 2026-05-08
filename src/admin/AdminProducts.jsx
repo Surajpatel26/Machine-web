@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { FaEdit, FaTrash, FaPlus, FaTimes, FaStar, FaBoxOpen } from 'react-icons/fa';
-import api from '../lib/api';
+import { FaEdit, FaTrash, FaPlus, FaTimes, FaStar, FaBoxOpen, FaImage } from 'react-icons/fa';
+import api, { getImageUrl } from '../lib/api';
 import toast from 'react-hot-toast';
 import ImageUpload from './ImageUpload';
 
@@ -68,7 +68,7 @@ export default function AdminProducts() {
       {/* MODAL */}
       {showForm && (
         <div className="modal-overlay" onClick={(e) => e.target === e.currentTarget && reset()}>
-          <div className="modal-box" style={{ maxWidth: 620 }}>
+          <div className="modal-box">
             <div className="modal-header">
               <div>
                 <div className="modal-title">{editId ? 'Edit Product' : 'New Product'}</div>
@@ -77,8 +77,8 @@ export default function AdminProducts() {
               <button className="modal-close" onClick={reset}><FaTimes size={13} /></button>
             </div>
 
-            <form onSubmit={handleSubmit}>
-              <div className="modal-body" style={{ maxHeight: '70vh', overflowY: 'auto' }}>
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden', flex: 1 }}>
+              <div className="modal-body">
                 <div className="form-grid">
                   <div className="form-group">
                     <label className="form-label">Product Name *</label>
@@ -142,6 +142,7 @@ export default function AdminProducts() {
         <table className="admin-table">
           <thead>
             <tr>
+              <th style={{ width: 60 }}></th>
               <th>Product</th>
               <th>Category</th>
               <th>Status</th>
@@ -151,9 +152,9 @@ export default function AdminProducts() {
           </thead>
           <tbody>
             {loading ? (
-              <tr><td colSpan="5" className="admin-loading">Loading…</td></tr>
+              <tr><td colSpan="6" className="admin-loading">Loading…</td></tr>
             ) : products.length === 0 ? (
-              <tr><td colSpan="5">
+              <tr><td colSpan="6">
                 <div className="admin-empty">
                   <div className="admin-empty-icon"><FaBoxOpen size={20} /></div>
                   <div className="admin-empty-title">No products yet</div>
@@ -162,6 +163,15 @@ export default function AdminProducts() {
               </td></tr>
             ) : products.map(p => (
               <tr key={p.id}>
+                <td>
+                  {p.main_image ? (
+                    <img src={getImageUrl(p.main_image)} alt="" style={{ width: 40, height: 40, borderRadius: 8, objectFit: 'cover' }} />
+                  ) : (
+                    <div style={{ width: 40, height: 40, borderRadius: 8, background: '#F3F4F6', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#9CA3AF' }}>
+                      <FaImage size={18} />
+                    </div>
+                  )}
+                </td>
                 <td>
                   <div className="admin-table-name">{p.name}</div>
                   {p.short_description && <div className="admin-table-sub" style={{ maxWidth: 280, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.short_description}</div>}

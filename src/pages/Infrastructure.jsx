@@ -49,17 +49,37 @@ export default function Infrastructure() {
   return (
     <div style={{ background:T.ivory }}>
 
+      <style>{`
+        @media (max-width: 768px) {
+          .machine-row {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 12px !important;
+          }
+          .hero-content {
+            padding: 0 1.5rem !important;
+          }
+          .stats-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+          .facility-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
+
       {/* HERO */}
-      <div style={{ position:'relative', height:340, overflow:'hidden' }}>
+      <div style={{ position:'relative', height: window.innerWidth < 768 ? 420 : 340, overflow:'hidden' }}>
         <img src={factoryImg} alt="SMG Facility" style={{ width:'100%', height:'100%', objectFit:'cover' }} className="hero-image-pan" />
         <div style={{ position:'absolute', inset:0, background:'linear-gradient(to right, rgba(0,9,36,0.9) 0%, rgba(0,9,36,0.58) 60%, rgba(0,9,36,0.18) 100%)' }} />
         <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ duration:0.7 }}
+          className="hero-content"
           style={{ position:'absolute', inset:0, display:'flex', flexDirection:'column', justifyContent:'center', padding:'0 3rem' }}>
           <div style={{ display:'flex', alignItems:'center', gap:10, marginBottom:12, fontFamily:T.cinzel, fontSize:'0.7rem', letterSpacing:'0.2em', color:T.gold, textTransform:'uppercase' }}>
             <div style={{ width:32, height:1, background:T.gold }} /> Our Facility
           </div>
-          <h1 style={{ fontFamily:T.playfair, fontWeight:700, fontSize:'clamp(2rem,5vw,3.5rem)', color:T.ivory, letterSpacing:'-0.02em', marginBottom:14 }}>
-            World-Class <em style={{ fontStyle:'italic', color:T.goldLt }}>Infrastructure</em>
+          <h1 style={{ fontFamily:T.playfair, fontWeight:700, fontSize:'clamp(2.2rem,5vw,3.5rem)', color:T.ivory, letterSpacing:'-0.02em', marginBottom:14, lineHeight: 1.1 }}>
+            World-Class <br /><em style={{ fontStyle:'italic', color:T.goldLt }}>Infrastructure</em>
           </h1>
           <p style={{ fontFamily:T.body, fontSize:'0.95rem', color:'rgba(253,249,241,0.72)', maxWidth:520, lineHeight:1.7 }}>
             State-of-the-art manufacturing facility spanning 50,000 sq. ft., equipped with the latest production and quality assurance equipment.
@@ -70,14 +90,19 @@ export default function Infrastructure() {
       <div style={{ height:1, background:'linear-gradient(90deg, transparent, rgba(201,168,76,0.35), transparent)' }} />
 
       {/* KEY STATS */}
-      <section style={{ background:T.navyMid, padding:'60px 0' }}>
+      <section style={{ background:T.navyMid, padding:'clamp(40px, 8vw, 80px) 0' }}>
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 0, borderRadius: 2, overflow: 'hidden', border: '1px solid rgba(201,168,76,0.12)' }}>
+          <div className="stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 0, borderRadius: 2, overflow: 'hidden', border: '1px solid rgba(201,168,76,0.12)' }}>
             {keyStats.map((s,i) => (
               <motion.div key={i} initial={{ opacity:0, y:20 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }} transition={{ delay:i*0.1 }}
-                style={{ textAlign:'center', padding:'2.5rem 1.25rem', borderRight: i<3?'1px solid rgba(201,168,76,0.12)':'none', borderBottom: i<2?'1px solid rgba(201,168,76,0.12)':undefined }}>
-                <div style={{ fontFamily:T.playfair, fontWeight:700, fontSize:'clamp(2rem,4vw,3rem)', color:T.goldLt, letterSpacing:'-0.02em', marginBottom:8, lineHeight:1 }}>{s.value}</div>
-                <div style={{ fontFamily:T.cinzel, fontSize:'0.63rem', letterSpacing:'0.15em', color:'rgba(253,249,241,0.55)', textTransform:'uppercase' }}>{s.label}</div>
+                style={{ 
+                  textAlign:'center', 
+                  padding:'clamp(1.5rem, 4vw, 2.5rem) 1rem', 
+                  borderRight: '1px solid rgba(201,168,76,0.12)', 
+                  borderBottom: '1px solid rgba(201,168,76,0.12)' 
+                }}>
+                <div style={{ fontFamily:T.playfair, fontWeight:700, fontSize:'clamp(1.75rem,4vw,3rem)', color:T.goldLt, letterSpacing:'-0.02em', marginBottom:8, lineHeight:1 }}>{s.value}</div>
+                <div style={{ fontFamily:T.cinzel, fontSize:'0.6rem', letterSpacing:'0.15em', color:'rgba(253,249,241,0.55)', textTransform:'uppercase' }}>{s.label}</div>
               </motion.div>
             ))}
           </div>
@@ -85,7 +110,7 @@ export default function Infrastructure() {
       </section>
 
       {/* FACILITY GALLERY */}
-      <section style={{ background:T.ivory, padding:'96px 0' }}>
+      <section style={{ background:T.ivory, padding:'clamp(60px, 10vw, 120px) 0' }}>
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <motion.div initial={{ opacity:0, y:20 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }} style={{ marginBottom:52 }}>
             <div style={{ fontFamily:T.cinzel, fontSize:'0.7rem', letterSpacing:'0.2em', color:T.gold, textTransform:'uppercase', marginBottom:12, display:'flex', alignItems:'center', gap:10 }}>
@@ -96,7 +121,7 @@ export default function Infrastructure() {
             </h2>
           </motion.div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '28px' }}>
+          <div className="facility-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '28px' }}>
             {facilities.map((f,i) => (
               <motion.div key={i} initial={{ opacity:0, y:30 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }} transition={{ delay:i*0.1, duration:0.6 }}
                 style={{ background:'#fff', borderRadius:2, overflow:'hidden', boxShadow:'0 2px 16px rgba(28,28,23,0.07)', transition:'all 0.35s' }}
@@ -119,7 +144,7 @@ export default function Infrastructure() {
       </section>
 
       {/* PRODUCTION EQUIPMENT */}
-      <section style={{ background:T.ivoryDk, padding:'80px 0' }}>
+      <section style={{ background:T.ivoryDk, padding:'clamp(60px, 8vw, 100px) 0' }}>
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <motion.div initial={{ opacity:0, y:20 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }} style={{ textAlign:'center', marginBottom:48 }}>
             <div style={{ display:'flex', alignItems:'center', justifyContent:'center', gap:10, marginBottom:12 }}>
@@ -137,7 +162,7 @@ export default function Infrastructure() {
             {machines.map((m,i) => (
               <motion.div key={i} initial={{ opacity:0, x:-20 }} whileInView={{ opacity:1, x:0 }} viewport={{ once:true }} transition={{ delay:i*0.08 }}
                 style={{ display:'flex', alignItems:'center', justifyContent:'space-between', padding:'18px 24px', borderBottom:i<machines.length-1?`1px solid ${T.ivoryDk}`:'none', background:i%2===0?'transparent':T.ivoryDk, transition:'all 0.2s' }}
-                className="hover:bg-[#F1EDE6]">
+                className="hover:bg-[#F1EDE6] machine-row">
                 <div style={{ display:'flex', alignItems:'center', gap:14 }}>
                   <div style={{ width:8, height:8, borderRadius:'50%', background:T.gold, flexShrink:0 }} />
                   <div>
@@ -151,6 +176,7 @@ export default function Infrastructure() {
           </div>
         </div>
       </section>
+
 
       {/* QUALITY & CERTS */}
       <section style={{ background: T.ivory, padding: '96px 0' }} id="quality">

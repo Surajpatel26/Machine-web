@@ -49,9 +49,9 @@ export default function Home() {
       <Testimonials />
 
       {/* ── Infrastructure Preview ───────────────────────── */}
-      <section style={{ padding: '8rem 0', background: 'var(--bg)', overflow: 'hidden' }}>
+      <section style={{ padding: 'clamp(4rem, 10vw, 8rem) 0', background: 'var(--bg)', overflow: 'hidden' }}>
         <div className="max-w-wide">
-          <div className="grid-2" style={{ alignItems: 'center', gap: '5rem' }}>
+          <div className="grid-2" style={{ alignItems: 'center', gap: 'clamp(2rem, 5vw, 5rem)' }}>
             
             <motion.div 
               initial={{ opacity: 0, x: -30 }} 
@@ -63,14 +63,14 @@ export default function Home() {
                 <span style={{ width: 40, height: 1, background: 'var(--gold)', display: 'inline-block', verticalAlign: 'middle', marginRight: 12 }}></span>
                 Precision Facility
               </div>
-              <h2 className="f-display" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', marginBottom: 28, lineHeight: 1.1 }}>
+              <h2 className="f-display" style={{ marginBottom: 28, lineHeight: 1.1 }}>
                 World-Class <span className="f-display-italic">Infrastructure</span>
               </h2>
-              <p className="f-body" style={{ color: 'var(--ink-mid)', fontSize: '1.15rem', marginBottom: 40, maxWidth: 540, opacity: 0.9 }}>
+              <p className="f-body" style={{ color: 'var(--ink-mid)', marginBottom: 40, maxWidth: 540, opacity: 0.9 }}>
                 Our 50,000 sq. ft. state-of-the-art manufacturing facility in Rajkot represents the pinnacle of engineering excellence. We combine advanced CNC production with aerospace-grade inspection protocols.
               </p>
 
-              <div className="grid-2" style={{ gap: '2rem 3rem', marginBottom: 48 }}>
+              <div className="grid-2" style={{ gap: '2rem', marginBottom: 48 }}>
                 {infraStats.map((stat, i) => (
                   <motion.div 
                     key={stat.title}
@@ -80,7 +80,7 @@ export default function Home() {
                     transition={{ delay: i * 0.1 }}
                     style={{ borderLeft: '1px solid rgba(26,26,24,0.1)', paddingLeft: 20 }}
                   >
-                    <div className="f-display" style={{ fontSize: '1.75rem', color: 'var(--ink)', marginBottom: 4 }}>{stat.value}</div>
+                    <div className="f-display" style={{ fontSize: 'clamp(1.5rem, 3vw, 1.75rem)', color: 'var(--ink)', marginBottom: 4 }}>{stat.value}</div>
                     <div className="f-label" style={{ color: 'var(--ink-light)', fontSize: '0.65rem' }}>{stat.title}</div>
                   </motion.div>
                 ))}
@@ -101,12 +101,12 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 1, ease: [0.23, 1, 0.32, 1] }}
               className="relative"
-              style={{ height: '100%', minHeight: 450 }}
+              style={{ width: '100%' }}
             >
               <div style={{ 
                 borderRadius: '32px', 
                 overflow: 'hidden', 
-                height: '100%', 
+                aspectRatio: '16/10',
                 boxShadow: '0 40px 100px rgba(26,26,24,0.15)',
                 position: 'relative',
                 zIndex: 2
@@ -120,26 +120,27 @@ export default function Home() {
               
               {/* Decorative elements */}
               <div style={{ 
-                position: 'absolute', bottom: -30, right: -30, 
-                width: 200, height: 200, border: '2px solid var(--gold)', 
+                position: 'absolute', bottom: -20, right: -20, 
+                width: '50%', height: '50%', border: '2px solid var(--gold)', 
                 borderRadius: '32px', opacity: 0.15, zIndex: 1 
               }} />
               
               <div style={{ 
-                position: 'absolute', top: 30, right: 30, 
+                position: 'absolute', top: 20, right: 20, 
                 background: 'rgba(255,255,255,0.9)', backdropFilter: 'blur(10px)',
-                padding: '16px 24px', borderRadius: '16px', zIndex: 3,
+                padding: '12px 20px', borderRadius: '16px', zIndex: 3,
                 boxShadow: '0 12px 32px rgba(0,0,0,0.1)',
-                display: 'flex', alignItems: 'center', gap: 12
+                display: 'flex', alignItems: 'center', gap: 10
               }}>
-                <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#10B981', boxShadow: '0 0 10px #10B981' }} />
-                <span className="f-label" style={{ color: 'var(--ink)', fontSize: '0.7rem' }}>Certified Production Live</span>
+                <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#10B981', boxShadow: '0 0 10px #10B981' }} />
+                <span className="f-label" style={{ color: 'var(--ink)', fontSize: '0.65rem' }}>Certified Production</span>
               </div>
             </motion.div>
 
           </div>
         </div>
       </section>
+
 
       {/* ── CTA Banner ──────────────────────────────────── */}
       <section style={{ padding: '4rem 0', background: 'var(--bg-white)' }}>

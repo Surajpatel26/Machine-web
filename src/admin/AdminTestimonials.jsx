@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { FaEdit, FaTrash, FaStar, FaRegStar, FaPlus, FaTimes, FaQuoteLeft } from 'react-icons/fa';
-import api from '../lib/api';
+import { FaEdit, FaTrash, FaStar, FaRegStar, FaPlus, FaTimes, FaQuoteLeft, FaUserCircle } from 'react-icons/fa';
+import api, { getImageUrl } from '../lib/api';
 import toast from 'react-hot-toast';
 import ImageUpload from './ImageUpload';
 
@@ -60,7 +60,7 @@ export default function AdminTestimonials() {
       {/* MODAL */}
       {showForm && (
         <div className="modal-overlay" onClick={(e) => e.target === e.currentTarget && reset()}>
-          <div className="modal-box" style={{ maxWidth: 600 }}>
+          <div className="modal-box">
             <div className="modal-header">
               <div>
                 <div className="modal-title">{editId ? 'Edit Testimonial' : 'New Testimonial'}</div>
@@ -69,7 +69,7 @@ export default function AdminTestimonials() {
               <button className="modal-close" onClick={reset}><FaTimes size={13} /></button>
             </div>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden', flex: 1 }}>
               <div className="modal-body">
                 <div className="form-grid">
                   <div className="form-group">
@@ -136,6 +136,7 @@ export default function AdminTestimonials() {
         <table className="admin-table">
           <thead>
             <tr>
+              <th style={{ width: 60 }}></th>
               <th>Client</th>
               <th>Company</th>
               <th>Rating</th>
@@ -145,9 +146,9 @@ export default function AdminTestimonials() {
           </thead>
           <tbody>
             {loading ? (
-              <tr><td colSpan="5" className="admin-loading">Loading…</td></tr>
+              <tr><td colSpan="6" className="admin-loading">Loading…</td></tr>
             ) : testimonials.length === 0 ? (
-              <tr><td colSpan="5">
+              <tr><td colSpan="6">
                 <div className="admin-empty">
                   <div className="admin-empty-icon"><FaQuoteLeft size={20} /></div>
                   <div className="admin-empty-title">No testimonials yet</div>
@@ -156,6 +157,15 @@ export default function AdminTestimonials() {
               </td></tr>
             ) : testimonials.map(t => (
               <tr key={t.id}>
+                <td>
+                  {t.avatar_url ? (
+                    <img src={getImageUrl(t.avatar_url)} alt="" style={{ width: 40, height: 40, borderRadius: 8, objectFit: 'cover' }} />
+                  ) : (
+                    <div style={{ width: 40, height: 40, borderRadius: 8, background: '#F3F4F6', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#9CA3AF' }}>
+                      <FaUserCircle size={20} />
+                    </div>
+                  )}
+                </td>
                 <td>
                   <div className="admin-table-name">{t.client_name}</div>
                   {t.designation && <div className="admin-table-sub">{t.designation}</div>}

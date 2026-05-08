@@ -68,7 +68,7 @@ function EnquiryForm({ productName }) {
   }
 
   return (
-    <div style={{ background: '#fff', padding: '48px', borderRadius: '32px', boxShadow: '0 30px 60px rgba(0,0,0,0.06)' }}>
+    <div style={{ background: '#fff', padding: 'clamp(1.5rem, 5vw, 3rem)', borderRadius: '32px', boxShadow: '0 30px 60px rgba(0,0,0,0.06)' }}>
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px' }}>
           <div className="input-group">
@@ -119,11 +119,19 @@ function EnquiryForm({ productName }) {
             style={{ width: '100%', padding: '10px 0', border: 'none', borderBottom: '1px solid rgba(0,0,0,0.1)', background: 'transparent', outline: 'none', resize: 'none', transition: 'all 0.3s' }}
           />
         </div>
-        <button type="submit" disabled={loading} className="btn-pill" style={{ background: 'var(--brand-blue)', color: '#fff', border: 'none', padding: '14px 28px', borderRadius: '30px', cursor: 'pointer', alignSelf: 'flex-start', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem', fontWeight: 600 }}>
+        <button type="submit" disabled={loading} className="btn-pill" style={{ 
+          background: 'var(--brand-blue)', color: '#fff', border: 'none', 
+          padding: '14px 28px', borderRadius: '30px', cursor: 'pointer', 
+          alignSelf: window.innerWidth < 768 ? 'center' : 'flex-start', 
+          display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem', fontWeight: 600,
+          width: window.innerWidth < 768 ? '100%' : 'auto',
+          justifyContent: 'center'
+        }}>
           {loading ? 'Processing...' : <><FaPaperPlane style={{ fontSize: '0.8rem' }} /> Request Quote</>}
         </button>
       </form>
     </div>
+
   );
 }
 
@@ -196,7 +204,8 @@ export default function ProductDetail() {
         </Link>
 
         {/* ── Product Hero ──────────────────────────────── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14" style={{ marginBottom:52, alignItems:'start' }}>
+        <div className="grid-2" style={{ marginBottom:52, alignItems:'start', gap: 'clamp(2rem, 5vw, 4rem)' }}>
+
 
           {/* Image panel */}
           <motion.div

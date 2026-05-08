@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { FaEdit, FaTrash, FaPlus, FaTimes, FaGlobe, FaEyeSlash, FaBlog } from 'react-icons/fa';
-import api from '../lib/api';
+import { FaEdit, FaTrash, FaPlus, FaTimes, FaGlobe, FaEyeSlash, FaBlog, FaImage } from 'react-icons/fa';
+import api, { getImageUrl } from '../lib/api';
 import toast from 'react-hot-toast';
 import ImageUpload from './ImageUpload';
 
@@ -65,7 +65,7 @@ export default function AdminBlogs() {
       {/* MODAL */}
       {showForm && (
         <div className="modal-overlay" onClick={(e) => e.target === e.currentTarget && reset()}>
-          <div className="modal-box" style={{ maxWidth: 700 }}>
+          <div className="modal-box">
             <div className="modal-header">
               <div>
                 <div className="modal-title">{editId ? 'Edit Blog Post' : 'New Blog Post'}</div>
@@ -74,8 +74,8 @@ export default function AdminBlogs() {
               <button className="modal-close" onClick={reset}><FaTimes size={13} /></button>
             </div>
 
-            <form onSubmit={handleSubmit}>
-              <div className="modal-body" style={{ maxHeight: '72vh', overflowY: 'auto' }}>
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden', flex: 1 }}>
+              <div className="modal-body">
                 <div className="form-grid">
                   <div className="form-group">
                     <label className="form-label">Title *</label>
@@ -150,6 +150,7 @@ export default function AdminBlogs() {
         <table className="admin-table">
           <thead>
             <tr>
+              <th style={{ width: 60 }}></th>
               <th>Title</th>
               <th>Author</th>
               <th>Date</th>
@@ -159,9 +160,9 @@ export default function AdminBlogs() {
           </thead>
           <tbody>
             {loading ? (
-              <tr><td colSpan="5" className="admin-loading">Loading…</td></tr>
+              <tr><td colSpan="6" className="admin-loading">Loading…</td></tr>
             ) : blogs.length === 0 ? (
-              <tr><td colSpan="5">
+              <tr><td colSpan="6">
                 <div className="admin-empty">
                   <div className="admin-empty-icon"><FaBlog size={20} /></div>
                   <div className="admin-empty-title">No blog posts yet</div>
@@ -170,6 +171,15 @@ export default function AdminBlogs() {
               </td></tr>
             ) : blogs.map(b => (
               <tr key={b.id}>
+                <td>
+                  {b.image_url ? (
+                    <img src={getImageUrl(b.image_url)} alt="" style={{ width: 40, height: 40, borderRadius: 8, objectFit: 'cover' }} />
+                  ) : (
+                    <div style={{ width: 40, height: 40, borderRadius: 8, background: '#F3F4F6', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#9CA3AF' }}>
+                      <FaImage size={18} />
+                    </div>
+                  )}
+                </td>
                 <td style={{ maxWidth: 360 }}>
                   <div className="admin-table-name" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{b.title}</div>
                   {b.excerpt && <div className="admin-table-sub" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: 320 }}>{b.excerpt}</div>}

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { FaCloudUploadAlt, FaTimes, FaSpinner } from 'react-icons/fa';
-import api from '../lib/api';
+import api, { getImageUrl } from '../lib/api';
 import toast from 'react-hot-toast';
 
 export default function ImageUpload({ value, onChange, label = 'Image', hint = 'PNG, JPG up to 5MB' }) {
@@ -39,13 +39,6 @@ export default function ImageUpload({ value, onChange, label = 'Image', hint = '
     onChange('');
   };
 
-  const getFullUrl = (path) => {
-    if (!path) return '';
-    if (path.startsWith('http')) return path;
-    const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-    return `${baseUrl.replace(/\/api$/, '')}${path}`;
-  };
-
   return (
     <div className="form-group">
       <label className="form-label">{label}</label>
@@ -61,7 +54,7 @@ export default function ImageUpload({ value, onChange, label = 'Image', hint = '
           background: '#F9FAFB'
         }}>
           <img 
-            src={getFullUrl(value)} 
+            src={getImageUrl(value)} 
             alt="Preview" 
             style={{ width: '100%', height: '100%', objectFit: 'contain' }}
           />
