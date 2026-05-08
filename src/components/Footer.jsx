@@ -43,7 +43,7 @@ export default function Footer() {
                   Let’s build the <span className="f-display-italic" style={{ color: 'var(--gold)' }}>future together.</span>
                 </h2>
               </div>
-              <div style={{ display: 'flex', justifyContent: window.innerWidth > 768 ? 'flex-end' : 'flex-start' }}>
+              <div className="footer-cta-wrapper">
                 <Link to="/contact" className="btn-pill btn-pill-gold" style={{ height: 56, padding: '0 3rem' }}>
                   Start a Conversation
                 </Link>

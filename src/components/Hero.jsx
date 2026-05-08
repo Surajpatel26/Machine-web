@@ -80,16 +80,23 @@ function AbstractMachinedPart() {
 }
 
 export default function Hero() {
-  const isMobile = window.innerWidth < 768;
+  const [isMobile, setIsMobile] = React.useState(window.innerWidth < 768);
+
+  React.useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <section style={{ 
       position: 'relative', 
       width: '100%', 
-      height: isMobile ? '90vh' : '100vh', 
-      minHeight: isMobile ? '600px' : '800px', 
+      height: isMobile ? '85vh' : '100vh', 
+      minHeight: isMobile ? '580px' : '800px', 
       overflow: 'hidden', 
-      background: 'var(--bg-white)' 
+      background: 'var(--bg-white)',
+      marginTop: '36px'
     }}>
 
       {/* 3D WebGL Background */}
@@ -108,7 +115,18 @@ export default function Hero() {
               polar={[-Math.PI / 3, Math.PI / 3]}
               azimuth={[-Math.PI / 1.4, Math.PI / 2]}
             >
-              <AbstractMachinedPart />
+              <Float speed={1.5} rotationIntensity={0.1} floatIntensity={1}>
+                <group 
+                  rotation={[0.3, 0, 0]} 
+                  scale={isMobile ? 0.3 : 0.55} 
+                  position={isMobile ? [0, 0.5, 0] : [2.5, 0, 0]}
+                >
+                  <Gear position={[0, 0, 0]} scale={1.2} speed={0.4} color="#C9A84C" metalness={1} />
+                  <Gear position={[2.6, 1.2, 0.1]} scale={0.8} speed={-0.6} color="#1A202C" />
+                  <Gear position={[-2.7, -1.0, -0.2]} scale={0.9} speed={-0.53} color="#4A86B8" metalness={0.8} />
+                  <Gear position={[-1.2, 2.0, 0.1]} scale={0.5} speed={-0.96} color="#75777F" />
+                </group>
+              </Float>
             </PresentationControls>
             <Environment preset="city" />
             <ContactShadows position={[isMobile ? 0 : 2.5, -2.5, 0]} opacity={0.3} scale={15} blur={2.5} far={4} color="#000" />
@@ -121,14 +139,14 @@ export default function Hero() {
         position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, zIndex: 10,
         display: 'flex', flexDirection: 'column', 
         alignItems: isMobile ? 'center' : 'flex-start', 
-        justifyContent: isMobile ? 'flex-end' : 'center', 
-        paddingBottom: isMobile ? '120px' : '0',
+        justifyContent: isMobile ? 'center' : 'center', 
+        paddingTop: isMobile ? '80px' : '0',
         pointerEvents: 'none'
       }}>
         <motion.div
           style={{ 
             textAlign: isMobile ? 'center' : 'left', 
-            padding: isMobile ? '0 2rem' : '0 0 0 8%', 
+            padding: isMobile ? '0 1.5rem' : '0 0 0 8%', 
             maxWidth: '1200px', width: '100%' 
           }}
           initial={{ opacity: 0, y: 30 }}
@@ -137,38 +155,41 @@ export default function Hero() {
         >
           <div className="f-section-label" style={{ 
             justifyContent: isMobile ? 'center' : 'flex-start', 
-            marginBottom: 24, pointerEvents: 'auto', color: 'var(--brand-blue-lt)' 
+            marginBottom: 20, pointerEvents: 'auto', color: 'var(--brand-blue-lt)' 
           }}>
             <span>Precision Engineering</span>
           </div>
 
           <h1 className="f-display" style={{
             color: 'var(--ink)',
-            lineHeight: 1.1,
-            textShadow: '0 0 30px rgba(245,243,238,0.9), 0 0 10px rgba(245,243,238,1)',
-            marginBottom: 40
+            lineHeight: 1,
+            fontSize: isMobile ? '3rem' : 'clamp(4rem, 8vw, 7rem)',
+            textShadow: '0 0 40px rgba(245,243,238,0.9)',
+            marginBottom: 32
           }}>
             Engineered to <br />
             <span className="f-display-italic" style={{ color: 'var(--brand-blue)' }}>perform.</span>
           </h1>
 
           <div style={{ display: 'flex', justifyContent: isMobile ? 'center' : 'flex-start', pointerEvents: 'auto' }}>
-            <Link to="/products" className="btn-pill btn-pill-dark" style={{ padding: '1rem 3.5rem', fontSize: '1rem', background: 'var(--brand-blue)', color: '#fff' }}>
+            <Link to="/products" className="btn-pill btn-pill-dark" style={{ padding: '0.9rem 2.5rem', fontSize: '0.95rem', background: 'var(--brand-blue)', color: '#fff' }}>
               Explore Collections
             </Link>
           </div>
         </motion.div>
 
-        {/* Scroll Indicator */}
-        <motion.div
-          style={{ position: 'absolute', bottom: 48, left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 1 }}
-        >
-          <span className="f-label" style={{ color: 'var(--ink-light)' }}>Scroll to explore</span>
-          <div style={{ width: 1, height: 40, background: 'linear-gradient(to bottom, rgba(26,26,24,0.3), transparent)' }} />
-        </motion.div>
+        {/* Scroll Indicator - hide on small mobile to avoid clutter */}
+        {!isMobile && (
+          <motion.div
+            style={{ position: 'absolute', bottom: 48, left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.5, duration: 1 }}
+          >
+            <span className="f-label" style={{ color: 'var(--ink-light)' }}>Scroll to explore</span>
+            <div style={{ width: 1, height: 40, background: 'linear-gradient(to bottom, rgba(26,26,24,0.3), transparent)' }} />
+          </motion.div>
+        )}
       </div>
     </section>
   );

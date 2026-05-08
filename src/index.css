@@ -89,18 +89,26 @@ body {
 /* ── Navigation — Floema style ─────────────────────────────── */
 .f-nav {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 36px; 
+  left: 0; right: 0;
   z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 2rem;
+  padding: 0 1.5rem;
   height: 64px;
   background: rgba(237,235,230,0.88);
   backdrop-filter: blur(20px) saturate(1.4);
   -webkit-backdrop-filter: blur(20px) saturate(1.4);
   border-bottom: 1px solid rgba(26,26,24,0.07);
   transition: background 0.4s var(--transition);
+}
+
+@media (max-width: 768px) {
+  .f-nav {
+    padding: 0 1rem;
+    height: 56px;
+  }
 }
 
 .f-nav.dark {
@@ -666,6 +674,12 @@ section { padding: 100px 0; }
 .relative { position: relative; }
 .w-full { width: 100%; }
 .h-full { height: 100%; }
-.object-cover { object-fit: cover; }
+
+
+/* ── Footer specific ────────────────────────────────────────── */
+.footer-cta-wrapper { display: flex; justify-content: flex-end; }
+@media (max-width: 768px) {
+  .footer-cta-wrapper { justify-content: flex-start; }
+}
 
 

@@ -29,9 +29,16 @@ export default function Navbar() {
   const [scrolled,     setScrolled]     = useState(false);
   const [dropOpen,     setDropOpen]     = useState(false);
   const [mobileExpand, setMobileExpand] = useState(false);
+  const [isMobile,     setIsMobile]     = useState(window.innerWidth < 768);
   const location   = useLocation();
   const dropRef    = useRef(null);
   const leaveTimer = useRef(null);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30);
@@ -103,14 +110,12 @@ export default function Navbar() {
         style={{
           background: scrolled ? 'rgba(245,243,238,0.95)' : 'rgba(245,243,238,0.82)',
           boxShadow: scrolled ? '0 2px 24px rgba(26,26,24,0.08)' : 'none',
-          top: window.innerWidth > 768 ? '40px' : '0'
-
         }}
       >
 
         {/* Logo */}
         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', flexShrink: 0 }}>
-          <img src={logo} alt="SMG Machines" style={{ height: 40, width: 'auto', objectFit: 'contain' }} />
+          <img src={logo} alt="SMG Machines" style={{ height: isMobile ? 32 : 40, width: 'auto', objectFit: 'contain' }} />
         </Link>
 
         {/* Centre pill nav */}
@@ -229,10 +234,10 @@ export default function Navbar() {
             exit={{ opacity: 1, x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
             style={{
-              position: 'fixed', top: 0, bottom: 0, right: 0, left: 0,
+              position: 'fixed', top: '36px', bottom: 0, right: 0, left: 0,
               background: 'rgba(245,243,238,0.98)', backdropFilter: 'blur(30px)',
               zIndex: 999, display: 'flex', flexDirection: 'column',
-              padding: '80px 2rem 4rem',
+              padding: '40px 1.5rem 4rem',
             }}
           >
             {/* Mobile Header (Search or Close is handled by toggle button but let's add search) */}

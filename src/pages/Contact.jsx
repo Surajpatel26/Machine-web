@@ -577,6 +577,36 @@ const Contact = () => {
             padding: 2.5rem;
           }
         }
+
+        @media (max-width: 768px) {
+          .max-w-wide {
+            padding: 80px 1.25rem !important;
+          }
+          .hero-text {
+            font-size: 3.5rem;
+            margin-top: 2rem;
+          }
+          .hero-sub {
+            font-size: 1.1rem;
+            margin-top: 1.5rem;
+          }
+          .form-glass {
+            padding: 2rem 1.5rem;
+            border-radius: 2rem;
+          }
+          .interactive-card {
+            padding: 1.5rem;
+            border-radius: 1.5rem;
+          }
+          .icon-wrapper {
+            width: 3.5rem;
+            height: 3.5rem;
+            font-size: 1.2rem;
+          }
+          .card-value {
+            font-size: 1.25rem;
+          }
+        }
       `}</style>
     </div>
   );
