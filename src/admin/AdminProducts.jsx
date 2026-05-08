@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { FaEdit, FaTrash, FaPlus, FaTimes, FaStar, FaBoxOpen } from 'react-icons/fa';
 import api from '../lib/api';
 import toast from 'react-hot-toast';
+import ImageUpload from './ImageUpload';
 
-const EMPTY = { category_id: '', name: '', slug: '', short_description: '', is_active: true, is_featured: false };
+
+const EMPTY = { category_id: '', name: '', slug: '', short_description: '', is_active: true, is_featured: false, main_image: '', images: [] };
+
 
 export default function AdminProducts() {
   const [products, setProducts] = useState([]);
@@ -111,7 +114,17 @@ export default function AdminProducts() {
                       <span className="toggle-label">Featured on homepage</span>
                     </div>
                   </div>
+
+                  <div className="form-group form-grid-full">
+                    <ImageUpload 
+                      label="Product Image *"
+                      value={form.main_image} 
+                      onChange={(url) => setForm(p => ({ ...p, main_image: url }))} 
+                      hint="Main photo shown in the catalog"
+                    />
+                  </div>
                 </div>
+
               </div>
               <div className="modal-footer">
                 <button type="submit" disabled={saving} className="btn-primary" style={{ flex: 1, justifyContent: 'center' }}>

@@ -5,7 +5,9 @@ import Hero from '../components/Hero';
 import ProductCategories from '../components/ProductCategories';
 import FeaturedProducts from '../components/FeaturedProducts';
 import Testimonials from '../components/Testimonials';
+import { FaPhone } from 'react-icons/fa';
 import factoryImg from '../assets/factory_floor.png';
+
 
 const infraStats = [
   { title: 'Manufacturing Area', value: '50k sq.ft.' },
@@ -154,8 +156,8 @@ export default function Home() {
               <Link to="/contact" className="btn-pill btn-pill-gold">
                 Get Free Quote
               </Link>
-              <a href="tel:+919876543210" className="btn-pill btn-pill-white">
-                Call Us Now
+              <a href="tel:+919810412158" className="btn-pill btn-pill-white">
+                <FaPhone size={14} /> Call Now
               </a>
             </div>
           </div>

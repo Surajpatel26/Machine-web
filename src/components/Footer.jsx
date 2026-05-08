@@ -19,12 +19,6 @@ const footerLinks = {
     { label: 'Quality Standards',  to: '/about#quality' },
     { label: 'Careers',         to: '/contact' },
   ],
-  Support: [
-    { label: 'Technical Center',  to: '/contact' },
-    { label: 'Inquiry Portal',     to: '/contact' },
-    { label: 'Service Request', to: '/contact' },
-    { label: 'Global Network',     to: '/contact' },
-  ],
 };
 
 export default function Footer() {
@@ -105,6 +99,33 @@ export default function Footer() {
               </ul>
             </div>
           ))}
+
+          {/* Contact Column */}
+          <div>
+            <h4 className="f-label" style={{ color: '#fff', marginBottom: '24px', fontSize: '0.75rem', letterSpacing: '0.15em', opacity: 0.8 }}>CONTACT US</h4>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <li style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+                <FaMapMarkerAlt style={{ color: 'var(--gold)', marginTop: '4px', flexShrink: 0 }} />
+                <span className="f-body" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.9rem', lineHeight: 1.5 }}>
+                  A-57, Phase - II, Mayapuri Industrial Area, New Delhi - 110064
+                </span>
+              </li>
+              <li style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+                <FaPhone style={{ color: 'var(--gold)', flexShrink: 0 }} />
+                <span className="f-body" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.9rem' }}>
+                  +91 98104 12158 / 98100 60006
+                </span>
+              </li>
+              <li style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+                <FaEnvelope style={{ color: 'var(--gold)', flexShrink: 0 }} />
+                <span className="f-body" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.9rem' }}>
+                  smgmachines@gmail.com
+                </span>
+              </li>
+            </ul>
+          </div>
+
+
           
         </div>
 

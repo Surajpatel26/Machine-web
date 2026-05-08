@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaBars, FaTimes, FaChevronDown, FaSearch } from 'react-icons/fa';
+import { FaBars, FaTimes, FaChevronDown, FaSearch, FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
+
+
 import logo from '../assets/logo.webp';
 
 const navLinks = [
@@ -55,6 +57,44 @@ export default function Navbar() {
 
   return (
     <>
+      {/* Top Running Strip with Official Contact Info */}
+      <div style={{ 
+        background: '#111110', color: 'rgba(255,255,255,0.7)', 
+        padding: '10px 0', fontSize: '0.75rem', fontFamily: 'var(--sans)',
+        borderBottom: '1px solid rgba(255,255,255,0.05)',
+        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1001,
+        overflow: 'hidden', whiteSpace: 'nowrap'
+      }}>
+        <motion.div 
+          animate={{ x: [0, -1000] }}
+          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+          style={{ display: 'inline-flex', gap: '60px', paddingRight: '60px' }}
+        >
+          {/* Main Strip Item */}
+          {[1, 2, 3, 4, 5].map((i) => (
+            <React.Fragment key={i}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <FaPhone style={{ fontSize: '11px', color: 'var(--gold)' }} /> 
+                <span style={{ fontWeight: 600, color: '#fff' }}>CALL US:</span> +91 98104 12158 / +91 98100 60006
+              </span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <FaEnvelope style={{ fontSize: '11px', color: 'var(--gold)' }} /> 
+                <span style={{ fontWeight: 600, color: '#fff' }}>EMAIL:</span> smgmachines@gmail.com
+              </span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <FaMapMarkerAlt style={{ fontSize: '11px', color: 'var(--gold)' }} /> 
+                <span style={{ fontWeight: 600, color: '#fff' }}>VISIT:</span> A-57, Phase - II, Mayapuri Industrial Area, New Delhi
+              </span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#10B981' }} />
+                ISO 9001:2015 CERTIFIED PRECISION ENGINEERING
+              </span>
+            </React.Fragment>
+          ))}
+        </motion.div>
+      </div>
+
+
       <motion.nav
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -63,8 +103,11 @@ export default function Navbar() {
         style={{
           background: scrolled ? 'rgba(245,243,238,0.95)' : 'rgba(245,243,238,0.82)',
           boxShadow: scrolled ? '0 2px 24px rgba(26,26,24,0.08)' : 'none',
+          top: window.innerWidth > 768 ? '40px' : '0'
+
         }}
       >
+
         {/* Logo */}
         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', flexShrink: 0 }}>
           <img src={logo} alt="SMG Machines" style={{ height: 40, width: 'auto', objectFit: 'contain' }} />

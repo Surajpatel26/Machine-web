@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaSearch, FaArrowRight, FaThLarge, FaList, FaIndustry } from 'react-icons/fa';
-import api from '../lib/api';
+import api, { getImageUrl } from '../lib/api';
+
 import vmcImg   from '../assets/hero_vmc.png';
 import cncImg   from '../assets/cnc_lathe.png';
 import hmcImg   from '../assets/hmc_machine.png';
@@ -161,8 +162,9 @@ export default function Products() {
               style={{ gap: '3rem 2rem' }}
             >
               {products.map((product, i) => {
-                const img = categoryImages[product.category_slug] || vmcImg;
+                const img = product.main_image ? getImageUrl(product.main_image) : (categoryImages[product.category_slug] || vmcImg);
                 return (
+
                   <Link
                     key={product.id}
                     to={`/products/${product.slug}`}

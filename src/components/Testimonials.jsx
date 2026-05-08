@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaChevronLeft, FaChevronRight, FaQuoteRight } from 'react-icons/fa';
-import api from '../lib/api';
+import api, { getImageUrl } from '../lib/api';
+
 
 export default function Testimonials() {
   const [list, setList] = useState([]);
@@ -89,8 +90,9 @@ export default function Testimonials() {
                 >
                   <div style={{ marginBottom: 40, position: 'relative' }}>
                     {t.avatar_url ? (
-                      <img src={t.avatar_url} alt={t.client_name} style={{ width: 100, height: 100, borderRadius: '50%', objectFit: 'cover', border: '4px solid #fff', boxShadow: '0 10px 30px rgba(0,0,0,0.1)' }} />
+                      <img src={getImageUrl(t.avatar_url)} alt={t.client_name} style={{ width: 100, height: 100, borderRadius: '50%', objectFit: 'cover', border: '4px solid #fff', boxShadow: '0 10px 30px rgba(0,0,0,0.1)' }} />
                     ) : (
+
                       <div style={{
                         width: 100, height: 100, borderRadius: '50%', background: 'var(--brand-blue)', color: '#fff',
                         display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--serif)', fontSize: '2.5rem',

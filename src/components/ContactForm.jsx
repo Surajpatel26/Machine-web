@@ -81,7 +81,8 @@ export default function ContactForm({ compact = false }) {
             name="phone"
             value={form.phone}
             onChange={handleChange}
-            placeholder="+91 98765 43210"
+            placeholder="+91 98104 12158"
+
             className="w-full bg-[#1a1a2e] border border-white/10 rounded-lg px-4 py-3 text-white placeholder-[#94a3b8]/50 focus:outline-none focus:border-[#f97316] transition-colors text-sm"
           />
         </div>

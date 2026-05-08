@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaCalendarAlt, FaUser, FaArrowLeft } from 'react-icons/fa';
-import api from '../lib/api';
+import api, { getImageUrl } from '../lib/api';
+
 
 const T = {
   navy:'#000924', navyMid:'#0F2044', gold:'#C9A84C', goldLt:'#E6C364',
@@ -112,8 +113,9 @@ export default function BlogDetail() {
         >
           <div style={{ borderRadius: 2, overflow: 'hidden', boxShadow: '0 24px 80px rgba(0,9,36,0.22)' }}>
             <img
-              src={blog.image_url}
+              src={getImageUrl(blog.image_url)}
               alt={blog.title}
+
               style={{ width: '100%', aspectRatio: '16/7', objectFit: 'cover', display: 'block' }}
             />
           </div>

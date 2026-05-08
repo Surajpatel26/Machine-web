@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { FaEdit, FaTrash, FaPlus, FaTimes, FaGlobe, FaEyeSlash, FaBlog } from 'react-icons/fa';
 import api from '../lib/api';
 import toast from 'react-hot-toast';
+import ImageUpload from './ImageUpload';
+
 
 const EMPTY = { title: '', slug: '', excerpt: '', content: '', image_url: '', author: '', is_published: false };
 
@@ -88,11 +90,15 @@ export default function AdminBlogs() {
                     <label className="form-label">Author</label>
                     <input className="form-input" placeholder="e.g. Chief Engineering Officer" value={form.author} onChange={set('author')} />
                   </div>
-                  <div className="form-group">
-                    <label className="form-label">Cover Image URL</label>
-                    <input className="form-input" type="url" placeholder="https://images.unsplash.com/…" value={form.image_url} onChange={set('image_url')} />
-                    <span className="form-hint">External URL to a high-quality image</span>
+                  <div className="form-group form-grid-full">
+                    <ImageUpload 
+                      label="Cover Image *"
+                      value={form.image_url} 
+                      onChange={(url) => setForm(p => ({ ...p, image_url: url }))} 
+                      hint="High-quality cover image for the blog post"
+                    />
                   </div>
+
                   <div className="form-group form-grid-full">
                     <label className="form-label">Excerpt</label>
                     <textarea className="form-textarea" placeholder="A brief engaging summary shown on the blog listing page…" value={form.excerpt} onChange={set('excerpt')} style={{ minHeight: 72 }} />

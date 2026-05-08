@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaArrowRight, FaCalendarAlt, FaUser, FaSearch } from 'react-icons/fa';
-import api from '../lib/api';
+import api, { getImageUrl } from '../lib/api';
+
 import blogHeroImg from '../assets/blog_hero_editorial_1778126494481.png';
 
 export default function Blog() {
@@ -135,8 +136,9 @@ export default function Blog() {
                 }}>
                   <div style={{ flex: '1 1 400px', minHeight: 320, position: 'relative', background: 'var(--ink)' }}>
                     {featured.image_url ? (
-                      <img src={featured.image_url} alt={featured.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      <img src={getImageUrl(featured.image_url)} alt={featured.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                     ) : (
+
                       <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <span className="f-display" style={{ color: 'rgba(255,255,255,0.2)', fontSize: '3rem' }}>SMG</span>
                       </div>
@@ -182,8 +184,9 @@ export default function Blog() {
                       }}>
                         <div style={{ height: 240, position: 'relative', overflow: 'hidden', flexShrink: 0, background: 'var(--bg)' }}>
                           {blog.image_url ? (
-                            <img src={blog.image_url} alt={blog.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            <img src={getImageUrl(blog.image_url)} alt={blog.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                           ) : (
+
                             <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                               <span className="f-display" style={{ color: 'var(--ink-light)', fontSize: '2rem', opacity: 0.2 }}>SMG</span>
                             </div>

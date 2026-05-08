@@ -219,32 +219,152 @@ export default function About() {
       </section>
 
       {/* ── Timeline Section ── */}
-      <section style={{ padding: '8rem 0' }}>
-        <div className="max-w-text">
-          <div style={{ textAlign: 'center', marginBottom: '80px' }}>
-            <h2 className="f-display" style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)' }}>Our <span className="f-display-italic">Evolution</span></h2>
+      <section style={{ padding: '10rem 0', background: '#fff' }}>
+        <div className="max-w-wide">
+          <div style={{ textAlign: 'center', marginBottom: '100px' }}>
+            <div className="f-section-label" style={{ color: 'var(--brand-blue)', marginBottom: '16px', justifyContent: 'center' }}>
+              <span>Our Legacy</span>
+            </div>
+            <h2 className="f-display" style={{ fontSize: 'clamp(3rem, 6vw, 4.5rem)' }}>Our <span className="f-display-italic">Evolution</span></h2>
           </div>
-          <div style={{ position: 'relative' }}>
-            <div style={{ position: 'absolute', left: '20px', top: 0, bottom: 0, width: '1px', background: 'rgba(26,26,24,0.1)' }} />
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '4rem' }}>
+
+          <div className="timeline-container" style={{ position: 'relative' }}>
+            {/* Center Vertical Line */}
+            <div className="timeline-center-line" />
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
               {timeline.map((item, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  style={{ position: 'relative', paddingLeft: '60px' }}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.8, delay: i * 0.1 }}
+                  className={`timeline-row ${i % 2 === 0 ? 'row-left' : 'row-right'}`}
                 >
-                  <div style={{ position: 'absolute', left: '16px', top: '10px', width: '10px', height: '10px', borderRadius: '50%', background: 'var(--brand-blue)', boxShadow: '0 0 0 5px rgba(59,107,149,0.1)' }} />
-                  <div className="f-display" style={{ fontSize: '1.75rem', color: 'var(--gold)', marginBottom: '8px' }}>{item.year}</div>
-                  <h4 className="f-label" style={{ fontSize: '0.75rem', color: 'var(--ink)', marginBottom: '12px', letterSpacing: '0.1em' }}>{item.title}</h4>
-                  <p className="f-body" style={{ color: 'var(--ink-mid)', fontSize: '1.05rem' }}>{item.desc}</p>
+                  {/* The Content Card */}
+                  <div className="timeline-card">
+                    <div className="timeline-year">{item.year}</div>
+                    <h4 className="timeline-title">{item.title}</h4>
+                    <p className="f-body timeline-desc">{item.desc}</p>
+                  </div>
+
+                  {/* The Dot */}
+                  <div className="timeline-dot" />
+                  
+                  {/* Empty space for zig-zag */}
+                  <div className="timeline-spacer" />
                 </motion.div>
               ))}
             </div>
           </div>
         </div>
+
+        <style>{`
+          .timeline-container {
+            padding: 40px 0;
+          }
+          .timeline-center-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: rgba(26,26,24,0.1);
+            transform: translateX(-50%);
+          }
+          .timeline-row {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            position: relative;
+          }
+          .timeline-card {
+            width: 45%;
+            padding: 3rem;
+            background: #fff;
+            border-radius: 2rem;
+            border: 1px solid rgba(26,26,24,0.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.02);
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 2;
+          }
+          .timeline-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.05);
+          }
+          .row-left {
+            flex-direction: row;
+            text-align: right;
+          }
+          .row-right {
+            flex-direction: row-reverse;
+            text-align: left;
+          }
+          .timeline-dot {
+            width: 14px;
+            height: 14px;
+            background: var(--brand-blue);
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            box-shadow: 0 0 0 6px rgba(59,107,149,0.1);
+          }
+          .timeline-spacer {
+            width: 45%;
+          }
+          .timeline-year {
+            font-family: var(--display);
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+          }
+          .timeline-title {
+            font-family: var(--sans);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--ink);
+            margin-bottom: 1rem;
+          }
+          .timeline-desc {
+            color: var(--ink-mid);
+            font-size: 1.1rem;
+            line-height: 1.6;
+          }
+
+          @media (max-width: 768px) {
+            .timeline-center-line {
+              left: 20px;
+              transform: none;
+            }
+            .timeline-row {
+              flex-direction: column !important;
+              align-items: flex-start !important;
+              text-align: left !important;
+              padding-left: 50px;
+            }
+            .timeline-card {
+              width: 100%;
+              padding: 2rem;
+            }
+            .timeline-dot {
+              left: 20px;
+              transform: translateX(-50%);
+              top: 40px;
+            }
+            .timeline-spacer {
+              display: none;
+            }
+          }
+        `}</style>
       </section>
+
 
       {/* ── Closing CTA ── */}
       <section style={{ padding: '10rem 0', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FaEdit, FaTrash, FaStar, FaRegStar, FaPlus, FaTimes, FaQuoteLeft } from 'react-icons/fa';
 import api from '../lib/api';
 import toast from 'react-hot-toast';
+import ImageUpload from './ImageUpload';
 
 const EMPTY = { client_name: '', company: '', designation: '', message: '', rating: 5, avatar_url: '', is_active: true };
 
@@ -84,9 +85,14 @@ export default function AdminTestimonials() {
                     <input className="form-input" placeholder="e.g. Production Manager" value={form.designation} onChange={set('designation')} />
                   </div>
                   <div className="form-group">
-                    <label className="form-label">Avatar URL</label>
-                    <input className="form-input" placeholder="https://..." value={form.avatar_url} onChange={set('avatar_url')} />
+                    <ImageUpload 
+                      label="Client Avatar"
+                      value={form.avatar_url} 
+                      onChange={(url) => setForm(p => ({ ...p, avatar_url: url }))} 
+                      hint="Client photo"
+                    />
                   </div>
+
                   <div className="form-group">
                     <label className="form-label">Rating</label>
                     <div className="star-rating" style={{ marginTop: 4 }}>

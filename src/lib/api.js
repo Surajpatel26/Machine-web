@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-  // baseURL: ' http://localhost:5000/api',
-  baseURL: 'https://machine-server-tv78.onrender.com/api',
+  baseURL: ' http://localhost:5000/api',
+  // baseURL: 'https://machine-server-tv78.onrender.com/api',
   timeout: 10000,
   headers: { 'Content-Type': 'application/json' },
 });
@@ -24,4 +24,12 @@ api.interceptors.response.use(
   }
 );
 
+export const getImageUrl = (path) => {
+  if (!path) return '';
+  if (path.startsWith('http')) return path;
+  const baseUrl = api.defaults.baseURL || '';
+  return `${baseUrl.replace(/\/api$/, '')}${path}`;
+};
+
 export default api;
+

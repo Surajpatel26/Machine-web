@@ -5,7 +5,8 @@ import {
   FaArrowLeft, FaPhone, FaEnvelope, FaPaperPlane,
   FaCheckCircle, FaChevronRight, FaIndustry
 } from 'react-icons/fa';
-import api from '../lib/api';
+import api, { getImageUrl } from '../lib/api';
+
 import vmcImg   from '../assets/hero_vmc.png';
 import cncImg   from '../assets/cnc_lathe.png';
 import hmcImg   from '../assets/hmc_machine.png';
@@ -165,8 +166,9 @@ export default function ProductDetail() {
   );
 
   const specs      = typeof product.specifications === 'string' ? JSON.parse(product.specifications) : (product.specifications || {});
-  const productImg = catImgs[product.category_slug] || vmcImg;
+  const productImg = product.main_image ? getImageUrl(product.main_image) : (catImgs[product.category_slug] || vmcImg);
   const tabs       = ['overview', 'specifications', 'enquiry'];
+
 
   return (
     <div style={{ background:T.ivory }}>
@@ -242,14 +244,15 @@ export default function ProductDetail() {
                 Need Help? Contact us:
               </div>
               <div style={{ display:'flex', gap:10 }}>
-                <a href="tel:+919876543210"
+                <a href="tel:+919810412158"
                   style={{ display:'flex', alignItems:'center', gap:6, fontFamily:T.body, fontWeight:600, fontSize:'0.84rem', color:T.navy, textDecoration:'none', transition:'color 0.2s' }}
                   className="hover:!text-[#C9A84C]"
                 >
                   <FaPhone style={{ fontSize:11, color:T.gold }} /> Call
                 </a>
                 <span style={{ color:'#D1D5DB' }}>|</span>
-                <a href="mailto:sales@smgmachines.com"
+                <a href="mailto:smgmachines@gmail.com"
+
                   style={{ display:'flex', alignItems:'center', gap:6, fontFamily:T.body, fontWeight:600, fontSize:'0.84rem', color:T.navy, textDecoration:'none', transition:'color 0.2s' }}
                   className="hover:!text-[#C9A84C]"
                 >
@@ -319,7 +322,7 @@ export default function ProductDetail() {
               >
                 <FaEnvelope style={{ fontSize:12 }} /> Send Enquiry
               </button>
-              <a href="tel:+919876543210" className="btn-gold" style={{ display:'inline-flex', alignItems:'center', gap:8 }}>
+              <a href="tel:+919810412158" className="btn-gold" style={{ display:'inline-flex', alignItems:'center', gap:8 }}>
                 <FaPhone style={{ fontSize:11 }} /> Call Expert
               </a>
             </div>
@@ -327,24 +330,35 @@ export default function ProductDetail() {
         </div>
 
         {/* ── Tabs ─────────────────────────────────────────── */}
-        <div style={{ borderBottom:`2px solid #E6E2DA`, marginBottom:36 }}>
-          <div style={{ display:'flex', gap:0, overflowX:'auto' }}>
+        <div style={{ marginBottom: 48, borderBottom: '1px solid rgba(26,26,24,0.08)' }}>
+          <div style={{ display: 'flex', gap: '32px', overflowX: 'auto', paddingBottom: '1px' }}>
             {tabs.map(tab => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 style={{
-                  padding:'13px 28px',
-                  fontFamily:T.cinzel, fontSize:'0.65rem', letterSpacing:'0.14em', textTransform:'uppercase',
-                  background:'transparent', border:'none', cursor:'pointer',
-                  borderBottom: activeTab === tab ? `3px solid ${T.gold}` : '3px solid transparent',
-                  marginBottom:-2,
-                  color: activeTab === tab ? T.navy : T.steel,
-                  fontWeight: activeTab === tab ? 700 : 400,
-                  transition:'all 0.25s', whiteSpace:'nowrap',
+                  padding: '16px 0',
+                  fontFamily: 'var(--sans)', 
+                  fontSize: '0.85rem', 
+                  letterSpacing: '0.05em', 
+                  textTransform: 'uppercase',
+                  fontWeight: 600,
+                  background: 'transparent', 
+                  border: 'none', 
+                  cursor: 'pointer',
+                  position: 'relative',
+                  color: activeTab === tab ? 'var(--ink)' : 'var(--ink-fade)',
+                  transition: 'all 0.3s var(--transition)',
+                  whiteSpace: 'nowrap',
                 }}
               >
                 {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                {activeTab === tab && (
+                  <motion.div 
+                    layoutId="activeTabLine"
+                    style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 2, background: 'var(--gold)' }} 
+                  />
+                )}
               </button>
             ))}
           </div>
@@ -354,65 +368,71 @@ export default function ProductDetail() {
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
-            initial={{ opacity:0, y:12 }}
-            animate={{ opacity:1, y:0 }}
-            exit={{ opacity:0 }}
-            transition={{ duration:0.28 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             {/* Overview */}
             {activeTab === 'overview' && (
-              <div style={{ maxWidth:860 }}>
-                <p style={{ fontFamily:T.body, fontSize:'0.95rem', color:T.slate, lineHeight:1.85, marginBottom:32 }}>
-                  {product.description}
-                </p>
-                {product.features?.length > 0 && (
-                  <>
-                    <div style={{ fontFamily:T.cinzel, fontSize:'0.68rem', letterSpacing:'0.14em', textTransform:'uppercase', color:T.navy, marginBottom:18, borderBottom:'1px solid #E6E2DA', paddingBottom:10 }}>
-                      All Features
+              <div style={{ maxWidth: '1000px' }}>
+                <div className="grid-2" style={{ gap: '4rem', alignItems: 'start' }}>
+                  <div>
+                    <h3 className="f-display" style={{ fontSize: '1.75rem', marginBottom: 24, color: 'var(--ink)' }}>Product <span className="f-display-italic">Narrative</span></h3>
+                    <p style={{ fontFamily: 'var(--sans)', fontSize: '1.05rem', color: 'var(--ink-mid)', lineHeight: 1.8, marginBottom: 32 }}>
+                      {product.description}
+                    </p>
+                  </div>
+                  
+                  {product.features?.length > 0 && (
+                    <div style={{ background: 'var(--bg)', padding: '2.5rem', borderRadius: '24px', border: '1px solid rgba(26,26,24,0.05)' }}>
+                      <span className="f-label" style={{ color: 'var(--brand-blue)', marginBottom: 20, display: 'block' }}>Technical Highlights</span>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                        {product.features.map((f, i) => (
+                          <div key={i} style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+                            <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--gold)', marginTop: 8, flexShrink: 0 }} />
+                            <span style={{ fontSize: '0.95rem', color: 'var(--ink)', fontWeight: 500 }}>{f}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {product.features.map((f, i) => (
-                        <div key={i} style={{
-                          display:'flex', alignItems:'flex-start', gap:12,
-                          background:'#fff', borderRadius:2, padding:'1rem 1.25rem',
-                          boxShadow:'0 1px 10px rgba(28,28,23,0.05)',
-                          borderLeft:`3px solid rgba(201,168,76,0.4)`,
-                        }}>
-                          <div style={{ width:6, height:6, borderRadius:'50%', background:T.gold, flexShrink:0, marginTop:6 }} />
-                          <span style={{ fontFamily:T.body, fontSize:'0.875rem', color:T.slate, lineHeight:1.65 }}>{f}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </>
-                )}
+                  )}
+                </div>
               </div>
             )}
 
             {/* Specifications */}
             {activeTab === 'specifications' && (
-              <div style={{ maxWidth:720 }}>
+              <div style={{ maxWidth: '900px' }}>
+                <div style={{ marginBottom: 40 }}>
+                  <h3 className="f-display" style={{ fontSize: '1.75rem', marginBottom: 12, color: 'var(--ink)' }}>Technical <span className="f-display-italic">Matrix</span></h3>
+                  <p className="f-body" style={{ color: 'var(--ink-mid)' }}>Standard configuration and engineering tolerances for the {product.name} series.</p>
+                </div>
+                
                 {Object.keys(specs).length > 0 ? (
-                  <div style={{ background:'#fff', borderRadius:2, overflow:'hidden', boxShadow:'0 2px 20px rgba(28,28,23,0.07)' }}>
-                    <div style={{ background:T.navyMid, padding:'13px 20px' }}>
-                      <span style={{ fontFamily:T.cinzel, fontSize:'0.65rem', letterSpacing:'0.16em', color:T.gold, textTransform:'uppercase' }}>
-                        Technical Specifications
-                      </span>
-                    </div>
-                    <table style={{ width:'100%', borderCollapse:'collapse' }}>
-                      <tbody>
-                        {Object.entries(specs).map(([key, val], i) => (
-                          <tr key={i} style={{ borderBottom: i < Object.keys(specs).length-1 ? `1px solid ${T.ivoryDk}` : 'none', background: i%2===0 ? '#fff' : T.ivoryDk }}>
-                            <td style={{ padding:'13px 20px', fontFamily:T.cinzel, fontSize:'0.65rem', letterSpacing:'0.1em', textTransform:'uppercase', color:T.navy, width:'38%', fontWeight:600, verticalAlign:'top' }}>{key}</td>
-                            <td style={{ padding:'13px 20px', fontFamily:T.body, fontSize:'0.875rem', color:T.slate, lineHeight:1.6 }}>{val}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                  <div style={{ borderTop: '1px solid var(--ink)', paddingTop: 16 }}>
+                    {Object.entries(specs).map(([key, val], i) => (
+                      <div 
+                        key={i} 
+                        style={{ 
+                          display: 'grid', 
+                          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
+                          padding: '24px 0',
+                          borderBottom: '1px solid rgba(26,26,24,0.08)',
+                          gap: '2rem'
+                        }}
+                      >
+                        <div className="f-label" style={{ color: 'var(--ink-fade)', fontSize: '0.7rem' }}>{key}</div>
+                        <div className="f-body" style={{ fontWeight: 600, color: 'var(--ink)', fontSize: '1rem' }}>{val}</div>
+                      </div>
+                    ))}
                   </div>
                 ) : (
-                  <div style={{ background:'#fff', borderRadius:2, padding:'3rem', textAlign:'center', boxShadow:'0 2px 20px rgba(28,28,23,0.07)' }}>
-                    <p style={{ fontFamily:T.body, color:T.steel, marginBottom:20 }}>Detailed specifications are available on request.</p>
-                    <button onClick={() => setActiveTab('enquiry')} className="btn-gold" style={{ cursor:'pointer' }}>Request Specifications</button>
+                  <div style={{ background: '#fff', borderRadius: '24px', padding: '4rem', textAlign: 'center', boxShadow: '0 20px 50px rgba(0,0,0,0.04)' }}>
+                    <p style={{ fontFamily: 'var(--sans)', color: 'var(--ink-mid)', marginBottom: 24 }}>Detailed engineering data is available upon formal request.</p>
+                    <button onClick={() => setActiveTab('enquiry')} className="btn-pill" style={{ background: 'var(--ink)', color: '#fff', border: 'none', padding: '12px 32px', borderRadius: '30px' }}>
+                      Download Datasheet
+                    </button>
                   </div>
                 )}
               </div>

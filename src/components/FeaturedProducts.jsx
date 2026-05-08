@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import api from '../lib/api';
+import api, { getImageUrl } from '../lib/api';
+
 
 import vmcImg   from '../assets/hero_vmc.png';
 import cncImg   from '../assets/cnc_lathe.png';
@@ -65,8 +66,9 @@ export default function FeaturedProducts() {
             >
               <Link to={`/products/${product.slug}`} className="f-card">
                 <div className="f-card-image" style={{ height: 280 }}>
-                  <img src={categoryImages[product.category_slug] || vmcImg} alt={product.name} />
+                  <img src={product.main_image ? getImageUrl(product.main_image) : (categoryImages[product.category_slug] || vmcImg)} alt={product.name} />
                   {product.is_featured && (
+
                     <div style={{ position: 'absolute', top: 16, right: 16, background: 'rgba(255,255,255,0.9)', padding: '6px 12px', borderRadius: 20, fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase' }}>
                       Featured
                     </div>
