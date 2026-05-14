@@ -330,7 +330,7 @@ const Contact = () => {
           background: #020617;
           min-height: 100vh;
           position: relative;
-          overflow: hidden;
+          overflow-x: hidden;
           color: #fff;
         }
 

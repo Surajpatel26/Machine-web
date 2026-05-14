@@ -70,7 +70,7 @@ export default function About() {
   });
 
   return (
-    <div style={{ background: 'var(--bg-white)', minHeight: '100vh', overflow: 'hidden' }}>
+    <div style={{ background: 'var(--bg-white)', minHeight: '100vh', overflowX: 'hidden' }}>
       
       {/* ── Progress Bar ── */}
       <motion.div style={{ scaleX, position: 'fixed', top: 0, left: 0, right: 0, height: '3px', background: 'var(--brand-blue)', zIndex: 1000, originX: 0 }} />
