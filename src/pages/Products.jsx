@@ -4,20 +4,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaSearch, FaArrowRight, FaThLarge, FaList, FaIndustry } from 'react-icons/fa';
 import api, { getImageUrl } from '../lib/api';
 
-import vmcImg   from '../assets/hero_vmc.png';
-import cncImg   from '../assets/cnc_lathe.png';
-import hmcImg   from '../assets/hmc_machine.png';
-import spmImg   from '../assets/spm_machine.png';
-import grindImg from '../assets/grinding_machine.png';
-import factoryImg from '../assets/factory_floor.png';
-
 const categoryImages = {
-  'cnc-machines': cncImg,
-  'vmc-machines': vmcImg,
-  'hmc-machines': hmcImg,
-  'special-purpose-machines': spmImg,
-  'drilling-machines': spmImg,
-  'grinding-machines': grindImg,
+  'cnc-machines':              '/machine5.png',
+  'vmc-machines':              '/machine3.png',
+  'hmc-machines':              '/machine8.png',
+  'special-purpose-machines':  '/machine1.jpeg',
+  'drilling-machines':         '/machine6.png',
+  'grinding-machines':         '/machine7.png',
 };
 
 export default function Products() {
@@ -54,7 +47,7 @@ export default function Products() {
 
       {/* ── Hero Banner ─────────────────────────────────── */}
       <div style={{ position: 'relative', height: '40vh', minHeight: 300, overflow: 'hidden' }}>
-        <img src={factoryImg} alt="Products" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        <img src="/machine4.png" alt="Products" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(26,26,24,0.95) 0%, rgba(26,26,24,0.6) 60%, transparent 100%)' }} />
         <motion.div
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}

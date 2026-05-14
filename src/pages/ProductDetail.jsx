@@ -7,12 +7,6 @@ import {
 } from 'react-icons/fa';
 import api, { getImageUrl } from '../lib/api';
 
-import vmcImg   from '../assets/hero_vmc.png';
-import cncImg   from '../assets/cnc_lathe.png';
-import hmcImg   from '../assets/hmc_machine.png';
-import spmImg   from '../assets/spm_machine.png';
-import grindImg from '../assets/grinding_machine.png';
-
 const T = {
   navy: 'var(--ink)',
   navyMid: 'var(--ink-mid)',
@@ -28,9 +22,11 @@ const T = {
 };
 
 const catImgs = {
-  'vmc-machines': vmcImg, 'cnc-machines': cncImg,
-  'hmc-machines': hmcImg, 'special-purpose-machines': spmImg,
-  'grinding-machines': grindImg,
+  'vmc-machines': '/machine3.png', 
+  'cnc-machines': '/machine5.png',
+  'hmc-machines': '/machine8.png', 
+  'special-purpose-machines': '/machine1.jpeg',
+  'grinding-machines': '/machine7.png',
 };
 
 /* ── Enquiry Mini-Form ───────────────────────────────────── */
@@ -174,7 +170,7 @@ export default function ProductDetail() {
   );
 
   const specs      = typeof product.specifications === 'string' ? JSON.parse(product.specifications) : (product.specifications || {});
-  const productImg = product.main_image ? getImageUrl(product.main_image) : (catImgs[product.category_slug] || vmcImg);
+  const productImg = product.main_image ? getImageUrl(product.main_image) : (catImgs[product.category_slug] || '/machine3.png');
   const tabs       = ['overview', 'specifications', 'enquiry'];
 
 

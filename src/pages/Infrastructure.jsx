@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import factoryImg  from '../assets/factory_floor.png';
 import cmmImg      from '../assets/cmm_room.png';
 import assemblyImg from '../assets/assembly_bay.png';
-import vmcImg      from '../assets/hero_vmc.png';
 
 const T = {
   navy:'#000924', navyMid:'#0F2044', gold:'#C9A84C', goldLt:'#E6C364',
@@ -19,7 +18,7 @@ const facilities = [
   { title:'Manufacturing Shop Floor', img: factoryImg,  desc:'50,000 sq. ft. main production area with CNC machining centers, assembly bays, and quality zones.' },
   { title:'CMM Inspection Room',       img: cmmImg,      desc:'Temperature-controlled CMM room with Renishaw and Zeiss equipment for micron-level accuracy.' },
   { title:'Assembly & Testing Bay',    img: assemblyImg, desc:'Dedicated final assembly and acceptance testing area where each machine undergoes rigorous run-off.' },
-  { title:'R&D Center',                img: vmcImg,      desc:'Dedicated research and development center for new product development and continuous improvement.' },
+  { title:'R&D Center',                img: '/machine3.png', desc:'Dedicated research and development center for new product development and continuous improvement.' },
 ];
 
 const machines = [

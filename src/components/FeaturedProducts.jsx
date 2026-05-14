@@ -4,19 +4,14 @@ import { Link } from 'react-router-dom';
 import api, { getImageUrl } from '../lib/api';
 
 
-import vmcImg   from '../assets/hero_vmc.png';
-import cncImg   from '../assets/cnc_lathe.png';
-import hmcImg   from '../assets/hmc_machine.png';
-import spmImg   from '../assets/spm_machine.png';
-import grindImg from '../assets/grinding_machine.png';
 
 const categoryImages = {
-  'cnc-machines': cncImg,
-  'vmc-machines': vmcImg,
-  'hmc-machines': hmcImg,
-  'special-purpose-machines': spmImg,
-  'drilling-machines': spmImg,
-  'grinding-machines': grindImg,
+  'cnc-machines':              '/machine5.png',
+  'vmc-machines':              '/machine3.png',
+  'hmc-machines':              '/machine8.png',
+  'special-purpose-machines':  '/machine1.jpeg',
+  'drilling-machines':         '/machine6.png',
+  'grinding-machines':         '/machine7.png',
 };
 
 const fallbackProducts = [

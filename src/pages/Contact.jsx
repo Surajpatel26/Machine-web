@@ -356,9 +356,9 @@ const Contact = () => {
         }
 
         .hero-text {
-          font-size: clamp(3.5rem, 10vw, 6.5rem);
-          line-height: 0.9;
-          letter-spacing: -0.04em;
+          font-size: clamp(2.5rem, 7vw, 4.5rem);
+          line-height: 0.95;
+          letter-spacing: -0.03em;
           background: linear-gradient(to bottom, #fff 40%, rgba(255,255,255,0.4));
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
@@ -372,9 +372,9 @@ const Contact = () => {
         }
 
         .hero-sub {
-          max-width: 600px;
-          margin: 2rem auto 0;
-          font-size: 1.25rem;
+          max-width: 540px;
+          margin: 1.5rem auto 0;
+          font-size: 1.05rem;
           color: #94a3b8;
           line-height: 1.6;
         }
@@ -382,22 +382,22 @@ const Contact = () => {
         .grid-2-contact {
           display: grid;
           grid-template-columns: 1fr 1.2fr;
-          gap: 6rem;
+          gap: 4rem;
           align-items: center;
-          margin-top: 4rem;
+          margin-top: 3rem;
         }
 
         .info-column {
           display: flex;
           flex-direction: column;
-          gap: 2rem;
+          gap: 1.5rem;
         }
 
         .interactive-card {
           background: rgba(255, 255, 255, 0.03);
           border: 1px solid rgba(255, 255, 255, 0.08);
-          border-radius: 2rem;
-          padding: 2rem;
+          border-radius: 1.5rem;
+          padding: 1.5rem;
           transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
           cursor: pointer;
         }
@@ -410,25 +410,25 @@ const Contact = () => {
 
         .card-inner {
           display: flex;
-          gap: 1.5rem;
+          gap: 1.25rem;
           align-items: center;
         }
 
         .icon-wrapper {
-          width: 4.5rem;
-          height: 4.5rem;
-          border-radius: 1.25rem;
+          width: 3.5rem;
+          height: 3.5rem;
+          border-radius: 1rem;
           background: var(--accent);
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 1.5rem;
-          box-shadow: 0 0 30px -5px var(--accent);
+          font-size: 1.25rem;
+          box-shadow: 0 0 25px -5px var(--accent);
           opacity: 0.9;
         }
 
         .card-label {
-          font-size: 0.75rem;
+          font-size: 0.65rem;
           text-transform: uppercase;
           letter-spacing: 0.1em;
           color: #64748b;
@@ -436,24 +436,24 @@ const Contact = () => {
         }
 
         .card-value {
-          font-size: 1.5rem;
-          margin: 0.25rem 0;
+          font-size: 1.2rem;
+          margin: 0.15rem 0;
           font-weight: 600;
         }
 
         .card-sub {
-          font-size: 0.875rem;
+          font-size: 0.8rem;
           color: #475569;
         }
 
         .social-strip {
           display: flex;
-          gap: 1.5rem;
-          margin-top: 2rem;
+          gap: 1.25rem;
+          margin-top: 1.5rem;
         }
 
         .social-link-icon {
-          font-size: 1.5rem;
+          font-size: 1.25rem;
           color: #475569;
           transition: all 0.3s ease;
         }
@@ -472,20 +472,20 @@ const Contact = () => {
           backdrop-filter: blur(30px);
           -webkit-backdrop-filter: blur(30px);
           border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 3rem;
-          padding: 4rem;
-          box-shadow: 0 50px 100px -20px rgba(0,0,0,0.5);
+          border-radius: 2rem;
+          padding: 2.5rem;
+          box-shadow: 0 40px 80px -20px rgba(0,0,0,0.5);
         }
 
         .form-title {
-          font-size: 2.5rem;
-          margin-bottom: 3rem;
+          font-size: 1.75rem;
+          margin-bottom: 2rem;
         }
 
         .form-stack {
           display: flex;
           flex-direction: column;
-          gap: 2rem;
+          gap: 1.5rem;
         }
 
         .input-field {
@@ -497,9 +497,9 @@ const Contact = () => {
           background: transparent;
           border: none;
           border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-          padding: 1rem 0;
+          padding: 0.75rem 0;
           color: #fff;
-          font-size: 1.1rem;
+          font-size: 0.95rem;
           outline: none;
           transition: all 0.3s ease;
         }
@@ -520,25 +520,25 @@ const Contact = () => {
         }
 
         .magical-button {
-          margin-top: 2rem;
+          margin-top: 1.5rem;
           background: #fff;
           color: #000;
           border: none;
-          padding: 1.5rem 3rem;
+          padding: 1.25rem 2.5rem;
           border-radius: 100px;
           font-weight: 700;
-          font-size: 1rem;
+          font-size: 0.9rem;
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 1rem;
+          gap: 0.75rem;
           cursor: pointer;
           transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         .magical-button:hover {
-          transform: scale(1.05);
-          box-shadow: 0 20px 40px -10px rgba(255,255,255,0.3);
+          transform: scale(1.03);
+          box-shadow: 0 15px 30px -10px rgba(255,255,255,0.3);
         }
 
         .btn-icon {
@@ -550,12 +550,12 @@ const Contact = () => {
         }
 
         .form-footer {
-          margin-top: 3rem;
+          margin-top: 2rem;
           display: flex;
           align-items: center;
-          gap: 0.75rem;
+          gap: 0.5rem;
           color: #475569;
-          font-size: 0.875rem;
+          font-size: 0.75rem;
         }
 
         .pulse-icon {
@@ -571,40 +571,40 @@ const Contact = () => {
         @media (max-width: 1024px) {
           .grid-2-contact {
             grid-template-columns: 1fr;
-            gap: 4rem;
+            gap: 3rem;
           }
           .form-glass {
-            padding: 2.5rem;
+            padding: 2rem;
           }
         }
 
         @media (max-width: 768px) {
           .max-w-wide {
-            padding: 80px 1.25rem !important;
+            padding: 60px 1.25rem !important;
           }
           .hero-text {
-            font-size: 3.5rem;
-            margin-top: 2rem;
-          }
-          .hero-sub {
-            font-size: 1.1rem;
+            font-size: 2.75rem;
             margin-top: 1.5rem;
           }
+          .hero-sub {
+            font-size: 1rem;
+            margin-top: 1rem;
+          }
           .form-glass {
-            padding: 2rem 1.5rem;
-            border-radius: 2rem;
+            padding: 1.75rem 1.25rem;
+            border-radius: 1.5rem;
           }
           .interactive-card {
-            padding: 1.5rem;
+            padding: 1.25rem;
             border-radius: 1.5rem;
           }
           .icon-wrapper {
-            width: 3.5rem;
-            height: 3.5rem;
-            font-size: 1.2rem;
+            width: 3rem;
+            height: 3rem;
+            font-size: 1.1rem;
           }
           .card-value {
-            font-size: 1.25rem;
+            font-size: 1.1rem;
           }
         }
       `}</style>

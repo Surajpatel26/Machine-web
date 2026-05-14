@@ -2,17 +2,11 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
-import vmcImg      from '../assets/hero_vmc.png';
-import cncImg      from '../assets/cnc_lathe.png';
-import hmcImg      from '../assets/hmc_machine.png';
-import spmImg      from '../assets/spm_machine.png';
-import grindImg    from '../assets/grinding_machine.png';
-
 const categories = [
-  { id: 'vmc', title: 'VMC Machines', image: vmcImg, slug: 'vmc-machines' },
-  { id: 'cnc', title: 'CNC Turning', image: cncImg, slug: 'cnc-machines' },
-  { id: 'hmc', title: 'HMC Machines', image: hmcImg, slug: 'hmc-machines' },
-  { id: 'spm', title: 'Special Purpose', image: spmImg, slug: 'special-purpose-machines' },
+  { id: 'vmc', title: 'VMC Machines', image: '/machine3.png', slug: 'vmc-machines' },
+  { id: 'cnc', title: 'CNC Turning', image: '/machine5.png', slug: 'cnc-machines' },
+  { id: 'hmc', title: 'HMC Machines', image: '/machine8.png', slug: 'hmc-machines' },
+  { id: 'spm', title: 'Special Purpose', image: '/machine1.jpeg', slug: 'special-purpose-machines' },
 ];
 
 export default function ProductCategories() {
