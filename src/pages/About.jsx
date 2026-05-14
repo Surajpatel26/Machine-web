@@ -80,10 +80,10 @@ export default function About() {
         <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 0.7 }}>
           <Canvas dpr={[1, 1.5]} gl={{ antialias: false, powerPreference: 'high-performance' }}>
             <PerspectiveCamera makeDefault position={[0, 0, 5]} />
-            <Environment preset="city" />
             <ambientLight intensity={0.5} />
             <pointLight position={[10, 10, 10]} intensity={1} />
             <Suspense fallback={null}>
+              <Environment preset="city" />
               <PrecisionNetwork />
             </Suspense>
           </Canvas>
@@ -93,7 +93,7 @@ export default function About() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
+            transition={{ duration: 0.6 }}
             style={{ maxWidth: '800px' }}
           >
             <div className="f-section-label" style={{ color: 'var(--brand-blue)', marginBottom: '24px' }}>

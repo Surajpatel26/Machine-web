@@ -104,10 +104,10 @@ const Contact = () => {
       <div className="bg-canvas-container">
         <Canvas dpr={[1, 2]} gl={{ antialias: true }}>
           <PerspectiveCamera makeDefault position={[0, 0, 8]} />
-          <Environment preset="night" />
           <ambientLight intensity={0.2} />
           <pointLight position={[10, 10, 10]} intensity={1} color="#6366f1" />
           <Suspense fallback={null}>
+            <Environment preset="night" />
             <TechBackground />
           </Suspense>
         </Canvas>
@@ -121,9 +121,9 @@ const Contact = () => {
           
           {/* Header Section */}
           <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             style={{ textAlign: 'center', marginBottom: '6rem' }}
           >
             <div className="f-section-label" style={{ color: '#60a5fa', marginBottom: '1.5rem', justifyContent: 'center' }}>
@@ -153,7 +153,7 @@ const Contact = () => {
                   initial={{ opacity: 0, x: -50 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: idx * 0.1, duration: 0.8 }}
+                  transition={{ delay: idx * 0.05, duration: 0.5 }}
                   className="interactive-card"
                 >
                   <div className="card-inner">
@@ -189,7 +189,7 @@ const Contact = () => {
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 1 }}
+              transition={{ duration: 0.6 }}
               className="premium-form-container"
             >
               <AnimatePresence mode="wait">
